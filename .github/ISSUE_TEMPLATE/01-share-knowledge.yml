@@ -39,6 +39,15 @@ body:
       description: Links, why it matters, and anything we should know. / קישורים, למה זה חשוב, וכל מה שכדאי שנדע.
     validations:
       required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: Are you a medical or scientific professional? / האם אתם אנשי מקצוע ברפואה או במדע?
+      description: Expert ideas get the "from-expert" label so developers can find and build them.
+      options:
+        - Yes, clinician (doctor, nurse, therapist) / כן, איש/אשת קליניקה
+        - Yes, researcher or professor / כן, חוקר/ת או פרופסור
+        - No / לא
   - type: input
     id: background
     attributes:

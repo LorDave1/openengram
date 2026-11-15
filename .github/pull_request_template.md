@@ -20,3 +20,5 @@
 - [ ] Any new dataset is listed in DATA.md with its license
 - [ ] No wording that presents output as a diagnosis or medical advice (see SAFETY.md)
 - [ ] I added myself to CONTRIBUTORS.md
+- [ ] If this builds on an expert's idea, I linked their issue so they are credited too
+- [ ] Label `needs-expert-review` if a clinician or scientist should check the medical sense of the result

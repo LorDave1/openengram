@@ -1,0 +1,42 @@
+name: 🎓 Become a scientific advisor / להצטרף כיועץ מדעי
+description: For doctors, scientists and professors who want to guide the research. No code needed.
+title: "[advisor] "
+labels: ["advisor", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for offering your expertise. Advisors suggest research questions, review results for medical sense, and are credited on the website and in CONTRIBUTORS.md. Time commitment is up to you.
+        תודה שאתם מציעים את הידע שלכם. יועצים מדעיים מציעים שאלות מחקר, בודקים שהתוצאות הגיוניות רפואית, ומקבלים קרדיט באתר וברשימת התורמים. היקף הזמן לפי מה שנוח לכם.
+  - type: input
+    id: name
+    attributes:
+      label: Name and title / שם ותואר
+      placeholder: e.g. Dr. Dana Levi, neurologist
+    validations:
+      required: true
+  - type: input
+    id: field
+    attributes:
+      label: Field and affiliation / תחום ומוסד
+      placeholder: e.g. cognitive neurology, Tel Aviv University
+    validations:
+      required: true
+  - type: textarea
+    id: help
+    attributes:
+      label: How would you like to help? / איך תרצו לעזור?
+      description: e.g. review EEG results, suggest features, guide the tau simulation, check drug-repurposing hypotheses.
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Public profile link (optional) / קישור לפרופיל ציבורי (לא חובה)
+      placeholder: university page, ORCID, LinkedIn
+  - type: checkboxes
+    id: credit
+    attributes:
+      label: Credit / קרדיט
+      options:
+        - label: You may list my name and title on the website as a scientific advisor. / מותר להציג את שמי ותוארי באתר כיועץ מדעי.

@@ -1,5 +1,11 @@
 # Contributing to OpenEngram
 
+OpenEngram connects two kinds of knowledge: **medical and scientific expertise** (doctors,
+researchers, professors) and **engineering** (programmers, data scientists). Experts share
+insights and review results; builders turn them into features, experiments and models.
+Ideas from experts are labelled `from-expert`, and results that need a medical check are
+labelled `needs-expert-review`. Both the expert and the developer are credited.
+
 Thank you for helping! Every kind of contribution counts.
 
 ## Ways to help
@@ -19,6 +25,7 @@ Everything goes through GitHub, so every change is public, reviewed and credited
 | Share an idea, paper, dataset or expert feedback (no code) | Fill the [**Share knowledge** form](https://github.com/LorDave1/openengram/issues/new?template=01-share-knowledge.yml) | A maintainer reviews it, labels it, and turns it into a task or a doc change. You are credited. |
 | Ask a question or introduce yourself | Post in [Discussions](https://github.com/LorDave1/openengram/discussions) | Community conversation. Good ideas become issues. |
 | Fix or improve code, docs or results | Open a pull request (steps below) | Automatic checks run, then a maintainer reviews and merges. |
+| Guide the research as a doctor, scientist or professor | Fill the [**Scientific advisor** form](https://github.com/LorDave1/openengram/issues/new?template=04-scientific-advisor.yml) | You review results labelled `needs-expert-review`, suggest questions, and are credited as an advisor on the website. |
 | Lead a new research module | Fill the [**Propose a module** form](https://github.com/LorDave1/openengram/issues/new?template=02-module-proposal.yml) | We agree the plan, then you become that module's lead and reviewer. |
 
 Every pull request runs automatic checks (code compiles, no data files, no wording that
