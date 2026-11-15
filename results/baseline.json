@@ -1,0 +1,310 @@
+{
+  "AD_vs_CN|subject|logreg": {
+    "n_people": {
+      "A": 36,
+      "C": 29
+    },
+    "chance_acc": 0.554,
+    "acc": [
+      0.782,
+      0.013
+    ],
+    "bal_acc": [
+      0.777,
+      0.012
+    ],
+    "auc": [
+      0.849,
+      0.009
+    ]
+  },
+  "AD_vs_CN|subject|forest": {
+    "n_people": {
+      "A": 36,
+      "C": 29
+    },
+    "chance_acc": 0.554,
+    "acc": [
+      0.74,
+      0.026
+    ],
+    "bal_acc": [
+      0.74,
+      0.026
+    ],
+    "auc": [
+      0.832,
+      0.015
+    ]
+  },
+  "AD_vs_CN|window|logreg": {
+    "n_people": {
+      "A": 36,
+      "C": 29
+    },
+    "chance_acc": 0.554,
+    "acc": [
+      0.795,
+      0.015
+    ],
+    "bal_acc": [
+      0.791,
+      0.013
+    ],
+    "auc": [
+      0.907,
+      0.006
+    ]
+  },
+  "AD_vs_CN|window|forest": {
+    "n_people": {
+      "A": 36,
+      "C": 29
+    },
+    "chance_acc": 0.554,
+    "acc": [
+      0.836,
+      0.007
+    ],
+    "bal_acc": [
+      0.835,
+      0.007
+    ],
+    "auc": [
+      0.894,
+      0.004
+    ]
+  },
+  "FTD_vs_CN|subject|logreg": {
+    "n_people": {
+      "F": 23,
+      "C": 29
+    },
+    "chance_acc": 0.558,
+    "acc": [
+      0.715,
+      0.038
+    ],
+    "bal_acc": [
+      0.708,
+      0.039
+    ],
+    "auc": [
+      0.76,
+      0.031
+    ]
+  },
+  "FTD_vs_CN|subject|forest": {
+    "n_people": {
+      "F": 23,
+      "C": 29
+    },
+    "chance_acc": 0.558,
+    "acc": [
+      0.685,
+      0.034
+    ],
+    "bal_acc": [
+      0.674,
+      0.033
+    ],
+    "auc": [
+      0.714,
+      0.043
+    ]
+  },
+  "FTD_vs_CN|window|logreg": {
+    "n_people": {
+      "F": 23,
+      "C": 29
+    },
+    "chance_acc": 0.558,
+    "acc": [
+      0.699,
+      0.009
+    ],
+    "bal_acc": [
+      0.685,
+      0.008
+    ],
+    "auc": [
+      0.765,
+      0.001
+    ]
+  },
+  "FTD_vs_CN|window|forest": {
+    "n_people": {
+      "F": 23,
+      "C": 29
+    },
+    "chance_acc": 0.558,
+    "acc": [
+      0.75,
+      0.0
+    ],
+    "bal_acc": [
+      0.726,
+      0.0
+    ],
+    "auc": [
+      0.826,
+      0.001
+    ]
+  },
+  "AD_vs_FTD|subject|logreg": {
+    "n_people": {
+      "A": 36,
+      "F": 23
+    },
+    "chance_acc": 0.61,
+    "acc": [
+      0.597,
+      0.024
+    ],
+    "bal_acc": [
+      0.539,
+      0.029
+    ],
+    "auc": [
+      0.518,
+      0.045
+    ]
+  },
+  "AD_vs_FTD|subject|forest": {
+    "n_people": {
+      "A": 36,
+      "F": 23
+    },
+    "chance_acc": 0.61,
+    "acc": [
+      0.58,
+      0.047
+    ],
+    "bal_acc": [
+      0.529,
+      0.048
+    ],
+    "auc": [
+      0.556,
+      0.039
+    ]
+  },
+  "AD_vs_FTD|window|logreg": {
+    "n_people": {
+      "A": 36,
+      "F": 23
+    },
+    "chance_acc": 0.61,
+    "acc": [
+      0.689,
+      0.008
+    ],
+    "bal_acc": [
+      0.628,
+      0.007
+    ],
+    "auc": [
+      0.626,
+      0.002
+    ]
+  },
+  "AD_vs_FTD|window|forest": {
+    "n_people": {
+      "A": 36,
+      "F": 23
+    },
+    "chance_acc": 0.61,
+    "acc": [
+      0.661,
+      0.0
+    ],
+    "bal_acc": [
+      0.573,
+      0.0
+    ],
+    "auc": [
+      0.463,
+      0.008
+    ]
+  },
+  "3class|subject|logreg": {
+    "n_people": {
+      "A": 36,
+      "F": 23,
+      "C": 29
+    },
+    "chance_acc": 0.409,
+    "acc": [
+      0.581,
+      0.035
+    ],
+    "bal_acc": [
+      0.544,
+      0.034
+    ],
+    "auc": [
+      0.713,
+      0.021
+    ]
+  },
+  "3class|subject|forest": {
+    "n_people": {
+      "A": 36,
+      "F": 23,
+      "C": 29
+    },
+    "chance_acc": 0.409,
+    "acc": [
+      0.552,
+      0.035
+    ],
+    "bal_acc": [
+      0.522,
+      0.036
+    ],
+    "auc": [
+      0.694,
+      0.014
+    ]
+  },
+  "3class|window|logreg": {
+    "n_people": {
+      "A": 36,
+      "F": 23,
+      "C": 29
+    },
+    "chance_acc": 0.409,
+    "acc": [
+      0.629,
+      0.005
+    ],
+    "bal_acc": [
+      0.587,
+      0.003
+    ],
+    "auc": [
+      0.754,
+      0.006
+    ]
+  },
+  "3class|window|forest": {
+    "n_people": {
+      "A": 36,
+      "F": 23,
+      "C": 29
+    },
+    "chance_acc": 0.409,
+    "acc": [
+      0.644,
+      0.005
+    ],
+    "bal_acc": [
+      0.594,
+      0.004
+    ],
+    "auc": [
+      0.713,
+      0.001
+    ]
+  }
+}
