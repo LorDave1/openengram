@@ -1,6 +1,8 @@
-# Open Brain Project
+# OpenEngram
 
 **An open, community-built research workspace for understanding and detecting dementia.**
+
+*An engram is the physical trace a memory leaves in the brain. OpenEngram is an open effort to understand how those traces are lost, and how to protect them.*
 
 Founded by David Abramov. Anyone can contribute: code, data analysis, domain knowledge,
 literature reviews, or plain-language explanations. You don't need to be a scientist
@@ -61,5 +63,5 @@ Datasets keep their own licenses (see [DATA.md](DATA.md)).
 
 ### בעברית בקצרה
 
-פרויקט פתוח לחקר וזיהוי דמנציה, שהוקם על ידי דוד אברמוב. כל אחד יכול לתרום: קוד, ניתוח נתונים,
+OpenEngram הוא פרויקט פתוח לחקר וזיהוי דמנציה, שהוקם על ידי דוד אברמוב. כל אחד יכול לתרום: קוד, ניתוח נתונים,
 ידע מקצועי או הסברים בשפה פשוטה. זה פרויקט מחקר בלבד ולא כלי רפואי.

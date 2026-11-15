@@ -1,4 +1,4 @@
-# Contributing to Open Brain Project
+# Contributing to OpenEngram
 
 Thank you for helping! Every kind of contribution counts.
 
