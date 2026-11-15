@@ -206,6 +206,30 @@ nav.links a:hover { color: var(--ink); }
 .mono-av { display: grid; place-items: center; font-family: "Sora", sans-serif; font-weight: 700; background: linear-gradient(140deg, #2a2f5c, #151a38); color: var(--memory); }
 .people small { color: var(--soft); font-size: .8rem; }
 
+.founder-card { display: flex; gap: 24px; align-items: center; padding: 26px; border-radius: 22px; border: 1px solid rgba(255,197,110,.5); background: linear-gradient(120deg, rgba(255,197,110,.14), rgba(127,214,255,.05)); }
+.founder-card > div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.founder-card h3 { font-size: var(--step-2); }
+.founder-card p { color: var(--soft); }
+.mono-av.big { width: 96px; height: 96px; font-size: 1.8rem; flex: none; }
+.ladder { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)) minmax(0,1.1fr); gap: 10px; margin-top: 22px; }
+.ladder div { position: relative; padding: 14px 16px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 2px; }
+.ladder div span { color: var(--soft); font-size: .9rem; }
+.ladder div:not(.adv):not(:nth-child(4))::after { content: "→"; position: absolute; inset-inline-end: -12px; top: 50%; transform: translateY(-50%); color: var(--memory); z-index: 1; }
+#app[dir="rtl"] .ladder div:not(.adv):not(:nth-child(4))::after { content: "←"; }
+.ladder .adv { border-color: rgba(255,197,110,.45); }
+.team-groups { display: flex; flex-direction: column; gap: 22px; margin-top: 28px; }
+.team-groups h4 { margin: 0 0 12px; font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; color: var(--soft); }
+.seats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+.seat { display: flex; gap: 12px; align-items: center; padding: 14px; border-radius: 14px; border: 1px solid var(--line); text-decoration: none; color: var(--ink); background: rgba(255,255,255,.03); min-width: 0; }
+.seat.open { border-style: dashed; }
+.seat .mono-av { width: 46px; height: 46px; font-size: .95rem; flex: none; }
+.seat.open .mono-av { border-style: dashed; color: var(--soft); box-shadow: none; }
+.seat div { display: flex; flex-direction: column; min-width: 0; }
+.seat small { color: var(--soft); font-size: .85rem; }
+.donate { margin-top: 20px; display: flex; gap: 24px; align-items: center; justify-content: space-between; flex-wrap: wrap; border-color: rgba(255,197,110,.45); }
+.donate > div { display: flex; flex-direction: column; gap: 8px; max-width: 640px; }
+.donate p { color: var(--soft); }
+
 /* rules */
 .rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 40px; margin: 0; padding: 0; list-style: none; }
 .rules li { display: flex; flex-direction: column; gap: 4px; padding-block: 18px; border-bottom: 1px solid var(--line); }
@@ -220,6 +244,9 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
 
 @media (max-width: 900px) {
   .results, .grid3, .paths { grid-template-columns: 1fr; }
+  .seats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .ladder { grid-template-columns: 1fr 1fr; }
+  .ladder div::after { display: none; }
   .flow { grid-template-columns: 1fr; }
   .arrow { height: 36px; }
   .arrow svg { display: none; }
@@ -228,7 +255,8 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
 }
 @media (max-width: 600px) {
   :root { --step-0: 1.08rem; }
-  .grid4, .rules, .steps { grid-template-columns: 1fr; }
+  .grid4, .rules, .steps, .seats { grid-template-columns: 1fr; }
+  .founder-card { flex-direction: column; align-items: flex-start; }
   .row, .axis { grid-template-columns: 7.4rem 1fr 3.4rem; gap: 10px; }
   .row .lbl { font-size: .95rem; }
   nav.links .opt { display: none; }
@@ -262,8 +290,9 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
       <a class="opt" href="#story"><span lang="en">Dementia</span><span lang="he">דמנציה</span></a>
       <a class="opt" href="#how"><span lang="en">How it works</span><span lang="he">איך זה עובד</span></a>
       <a class="opt" href="#modules"><span lang="en">Research</span><span lang="he">מחקר</span></a>
-      <a class="opt" href="#results"><span lang="en">Results</span><span lang="he">תוצאות</span></a>
+            <a class="opt" href="#team"><span lang="en">Team</span><span lang="he">צוות</span></a>
       <a href="#contribute"><span lang="en">Join</span><span lang="he">להצטרף</span></a>
+      <a class="opt navdonate" href="#donate" hidden><span lang="en">Donate</span><span lang="he">לתרום</span></a>
       <span class="langswitch" role="group" aria-label="Language">
         <button type="button" id="btn-en" data-set="en" aria-pressed="true">EN</button>
         <button type="button" id="btn-he" data-set="he" aria-pressed="false">עברית</button>
@@ -487,20 +516,54 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
         <li><strong><span lang="en">Experts review the result</span><span lang="he">מומחים בודקים את התוצאה</span></strong><span><span lang="en">Does it make medical sense? Automatic checks run too.</span><span lang="he">האם זה הגיוני רפואית? גם בדיקות אוטומטיות רצות.</span></span></li>
         <li><strong><span lang="en">It joins the model, with credit</span><span lang="he">זה נכנס למודל, עם קרדיט</span></strong><span><span lang="en">Both the expert and the developer are named. See the <a href="https://github.com/LorDave1/openengram/blob/main/CONTRIBUTING.md">guide</a>.</span><span lang="he">גם המומחה וגם המפתח מקבלים קרדיט. ראו את <a href="https://github.com/LorDave1/openengram/blob/main/CONTRIBUTING.md">המדריך</a>.</span></span></li>
       </ol>
+    </div>
+  </div>
+</section>
+
+<section class="glass" id="team" data-brain="0" data-pos="dim">
+  <div class="wrap">
+    <div class="panel">
+      <div class="head">
+        <span class="eyebrow"><span lang="en">Team</span><span lang="he">הצוות</span></span>
+        <h2><span lang="en">The people behind OpenEngram</span><span lang="he">האנשים שמאחורי OpenEngram</span></h2>
+        <p><span lang="en">Open to all, reviewed by people who know their field. Strong contributors can apply for a role and grow into the core team, with their name on this page.</span><span lang="he">פתוח לכולם, ונבדק על ידי אנשים שמכירים את התחום. תורמים חזקים יכולים לבקש תפקיד ולהתקדם עד לצוות המרכזי, עם השם שלהם בעמוד הזה.</span></p>
+      </div>
+      <div class="founder-card rv">
+        <span class="mono-av big" aria-hidden="true">DA</span>
+        <div>
+          <span class="eyebrow"><span lang="en">Founder &amp; lead maintainer</span><span lang="he">מייסד ומנהל ראשי</span></span>
+          <h3 id="founder-name"><span lang="en">David Abramov</span><span lang="he">דוד אברמוב</span></h3>
+          <p><span lang="en">Started OpenEngram to bring medical experts and developers together on dementia. Has the final say on direction and roles.</span><span lang="he">הקים את OpenEngram כדי לחבר בין מומחים רפואיים למפתחים סביב דמנציה. בעל המילה האחרונה בכיוון הפרויקט ובמינוי תפקידים.</span></p>
+          <a class="more" href="https://github.com/LorDave1">github.com/LorDave1</a>
+        </div>
+      </div>
+      <div class="ladder rv" aria-label="Roles">
+        <div><b><span lang="en">Contributor</span><span lang="he">תורם</span></b><span><span lang="en">anyone</span><span lang="he">כל אחד</span></span></div>
+        <div><b><span lang="en">Reviewer</span><span lang="he">בודק</span></b><span><span lang="en">reviews an area</span><span lang="he">בודק תחום</span></span></div>
+        <div><b><span lang="en">Module lead</span><span lang="he">מוביל מודול</span></b><span><span lang="en">owns a module</span><span lang="he">אחראי על מודול</span></span></div>
+        <div><b><span lang="en">Core team</span><span lang="he">צוות מרכזי</span></b><span><span lang="en">sets direction</span><span lang="he">מתווה כיוון</span></span></div>
+        <div class="adv"><b><span lang="en">Scientific advisors</span><span lang="he">יועצים מדעיים</span></b><span><span lang="en">guide the science</span><span lang="he">מכוונים את המדע</span></span></div>
+      </div>
+      <div id="team-groups" class="team-groups"></div>
+      <div class="cta" style="margin-top:28px">
+        <a class="btn primary magnet" href="https://github.com/LorDave1/openengram/issues/new?template=05-role-application.yml"><span lang="en">Apply for a role</span><span lang="he">לבקש תפקיד</span></a>
+        <a class="btn ghost magnet" href="https://github.com/LorDave1/openengram/blob/main/GOVERNANCE.md"><span lang="en">How roles work</span><span lang="he">איך התפקידים עובדים</span></a>
+      </div>
       <div class="credits">
-        <h3><span lang="en">Scientific advisors</span><span lang="he">יועצים מדעיים</span></h3>
-        <ul class="people">
-          <li><a href="https://github.com/LorDave1/openengram/issues/new?template=04-scientific-advisor.yml"><span class="mono-av" aria-hidden="true" style="border-style:dashed;color:var(--soft);box-shadow:none">+</span><span><span lang="en">Open seat</span><span lang="he">מקום פנוי</span></span><small><span lang="en">neurology</span><span lang="he">נוירולוגיה</span></small></a></li>
-          <li><a href="https://github.com/LorDave1/openengram/issues/new?template=04-scientific-advisor.yml"><span class="mono-av" aria-hidden="true" style="border-style:dashed;color:var(--soft);box-shadow:none">+</span><span><span lang="en">Open seat</span><span lang="he">מקום פנוי</span></span><small><span lang="en">neuroscience</span><span lang="he">מדעי המוח</span></small></a></li>
-          <li><a href="https://github.com/LorDave1/openengram/issues/new?template=04-scientific-advisor.yml"><span class="mono-av" aria-hidden="true" style="border-style:dashed;color:var(--soft);box-shadow:none">+</span><span><span lang="en">Open seat</span><span lang="he">מקום פנוי</span></span><small><span lang="en">geriatrics</span><span lang="he">גריאטריה</span></small></a></li>
-          <li><a href="https://github.com/LorDave1/openengram/issues/new?template=04-scientific-advisor.yml"><span class="mono-av" aria-hidden="true" style="border-style:dashed;color:var(--soft);box-shadow:none">+</span><span><span lang="en">Open seat</span><span lang="he">מקום פנוי</span></span><small><span lang="en">pharmacology</span><span lang="he">פרמקולוגיה</span></small></a></li>
-        </ul>
-        <h3 style="margin-top:18px"><span lang="en">Contributors</span><span lang="he">תורמים</span></h3>
+        <h3><span lang="en">Contributors</span><span lang="he">תורמים</span></h3>
         <ul id="people" class="people">
           <li><a href="https://github.com/LorDave1"><span class="mono-av" aria-hidden="true">DA</span><span>David Abramov</span><small><span lang="en">founder</span><span lang="he">מייסד</span></small></a></li>
           <li><a href="#contribute"><span class="mono-av" aria-hidden="true" style="border-style:dashed;color:var(--soft);box-shadow:none">+</span><span><span lang="en">You?</span><span lang="he">אתם?</span></span></a></li>
         </ul>
       </div>
+    </div>
+    <div class="panel donate rv" id="donate" hidden>
+      <div>
+        <span class="eyebrow"><span lang="en">Support</span><span lang="he">תמיכה</span></span>
+        <h3><span lang="en">Help keep the research running</span><span lang="he">עזרו להמשיך את המחקר</span></h3>
+        <p><span lang="en">Donations pay for computing, storage and small research grants. Spending is reported publicly. A donation never buys a role or a result.</span><span lang="he">התרומות מממנות כוח מחשוב, אחסון ומענקי מחקר קטנים. ההוצאות מדווחות בפומבי. תרומה לא קונה תפקיד או תוצאה.</span></p>
+      </div>
+      <a class="btn primary magnet donate-link" href="#"><span lang="en">Donate</span><span lang="he">לתרום</span></a>
     </div>
   </div>
 </section>
@@ -599,6 +662,45 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
       });
     }).catch(function () {});
   } catch (e) {}
+
+
+  /* ---------- team (docs/team.json on the live site; built-in copy as fallback) ---------- */
+  var TEAM = { donate_url: '', core: [], leads: [], advisors: [], open_roles: [
+    { role: 'Module lead', role_he: 'מוביל/ת מודול', area: 'Tau spread simulation', area_he: 'סימולציית התפשטות טאו' },
+    { role: 'Module lead', role_he: 'מוביל/ת מודול', area: 'Drug repurposing', area_he: 'שימוש חוזר בתרופות' },
+    { role: 'Module lead', role_he: 'מוביל/ת מודול', area: 'Speech markers', area_he: 'סמנים בדיבור' },
+    { role: 'Scientific advisor', role_he: 'יועץ/ת מדעי/ת', area: 'Neurology', area_he: 'נוירולוגיה' },
+    { role: 'Scientific advisor', role_he: 'יועץ/ת מדעי/ת', area: 'Geriatrics', area_he: 'גריאטריה' },
+    { role: 'Reviewer', role_he: 'בודק/ת', area: 'EEG and machine learning', area_he: 'EEG ולמידת מכונה' }
+  ] };
+  function esc(t) { var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
+  function initials(n) { return String(n || '?').split(/\s+/).map(function (w) { return w[0] || ''; }).join('').slice(0, 2).toUpperCase(); }
+  function bi(en, he) { return '<span lang="en">' + esc(en) + '</span><span lang="he">' + esc(he || en) + '</span>'; }
+  var APPLY = 'https://github.com/LorDave1/openengram/issues/new?template=05-role-application.yml';
+  var ADVISE = 'https://github.com/LorDave1/openengram/issues/new?template=04-scientific-advisor.yml';
+  function seat(p) {
+    var href = p.url || (p.github ? 'https://github.com/' + encodeURIComponent(p.github) : '#team');
+    return '<a class="seat" href="' + esc(href) + '"><span class="mono-av" aria-hidden="true">' + esc(initials(p.name)) + '</span><div><strong>' + bi(p.name, p.name_he) + '</strong><small>' + bi(p.title || p.area || '', p.title_he || p.area_he) + '</small></div></a>';
+  }
+  function openSeat(o) {
+    var href = /advisor/i.test(o.role) ? ADVISE : APPLY;
+    return '<a class="seat open" href="' + href + '"><span class="mono-av" aria-hidden="true">+</span><div><strong>' + bi(o.role, o.role_he) + '</strong><small>' + bi(o.area, o.area_he) + ' · ' + bi('open', 'פנוי') + '</small></div></a>';
+  }
+  function renderTeam(t) {
+    var g = document.getElementById('team-groups'), html = '';
+    [['core', 'Core team', 'צוות מרכזי'], ['leads', 'Module leads', 'מובילי מודולים'], ['advisors', 'Scientific advisory board', 'ועדה מדעית מייעצת']].forEach(function (k) {
+      var list = t[k[0]] || []; if (!list.length) return;
+      html += '<div><h4>' + bi(k[1], k[2]) + '</h4><div class="seats">' + list.map(seat).join('') + '</div></div>';
+    });
+    if ((t.open_roles || []).length) html += '<div><h4>' + bi('Open roles', 'תפקידים פנויים') + '</h4><div class="seats">' + t.open_roles.map(openSeat).join('') + '</div></div>';
+    g.innerHTML = html;
+    var url = /^https:\/\//.test(t.donate_url || '') ? t.donate_url : '';
+    document.getElementById('donate').hidden = !url;
+    document.querySelectorAll('.navdonate').forEach(function (a) { a.hidden = !url; });
+    if (url) document.querySelector('.donate-link').href = url;
+  }
+  renderTeam(TEAM);
+  try { fetch('team.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (t) { if (t) renderTeam(t); }).catch(function () {}); } catch (e) {}
 
   /* ---------- the brain ---------- */
   function initBrain() {

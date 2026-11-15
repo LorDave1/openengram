@@ -1,0 +1,16 @@
+{
+  "_comment": "Edit through a reviewed pull request. Shown in the Team section of the website. See GOVERNANCE.md.",
+  "founder": { "name": "David Abramov", "name_he": "דוד אברמוב", "github": "LorDave1" },
+  "donate_url": "",
+  "core": [],
+  "leads": [],
+  "advisors": [],
+  "open_roles": [
+    { "role": "Module lead", "role_he": "מוביל/ת מודול", "area": "Tau spread simulation", "area_he": "סימולציית התפשטות טאו" },
+    { "role": "Module lead", "role_he": "מוביל/ת מודול", "area": "Drug repurposing", "area_he": "שימוש חוזר בתרופות" },
+    { "role": "Module lead", "role_he": "מוביל/ת מודול", "area": "Speech markers", "area_he": "סמנים בדיבור" },
+    { "role": "Scientific advisor", "role_he": "יועץ/ת מדעי/ת", "area": "Neurology", "area_he": "נוירולוגיה" },
+    { "role": "Scientific advisor", "role_he": "יועץ/ת מדעי/ת", "area": "Geriatrics", "area_he": "גריאטריה" },
+    { "role": "Reviewer", "role_he": "בודק/ת", "area": "EEG and machine learning", "area_he": "EEG ולמידת מכונה" }
+  ]
+}

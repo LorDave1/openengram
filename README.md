@@ -53,7 +53,7 @@ make eeg-baseline   # train and evaluate baseline models
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and our [Code of Conduct](CODE_OF_CONDUCT.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md), [GOVERNANCE.md](GOVERNANCE.md) (roles and how decisions are made) and our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
