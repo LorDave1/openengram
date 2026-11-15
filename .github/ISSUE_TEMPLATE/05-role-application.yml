@@ -1,0 +1,53 @@
+name: 🏅 Apply for a role / בקשה לתפקיד בפרויקט
+description: Apply to become a reviewer, module lead or core team member. See GOVERNANCE.md.
+title: "[role] "
+labels: ["role-application", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Roles are explained in [GOVERNANCE.md](https://github.com/LorDave1/openengram/blob/main/GOVERNANCE.md). Applications are public and approved by the founder.
+        התפקידים מוסברים ב-GOVERNANCE.md. הבקשות פומביות ומאושרות על ידי המייסד.
+        Doctors and scientists: please use the scientific advisor form instead. / רופאים ומדענים: השתמשו בטופס היועץ המדעי.
+  - type: dropdown
+    id: role
+    attributes:
+      label: Role / תפקיד
+      options:
+        - Reviewer / בודק
+        - Module lead / מוביל מודול
+        - Core team / צוות מרכזי
+    validations:
+      required: true
+  - type: input
+    id: area
+    attributes:
+      label: Area / תחום
+      placeholder: e.g. eeg_dementia, docs, data, drug_repurposing
+    validations:
+      required: true
+  - type: textarea
+    id: work
+    attributes:
+      label: Your contributions so far / מה תרמתם עד עכשיו
+      description: Links to pull requests, issues, reviews or discussions.
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: What you'd do in this role / מה תעשו בתפקיד
+    validations:
+      required: true
+  - type: input
+    id: display
+    attributes:
+      label: Name and title to show on the website / שם ותואר שיוצגו באתר
+      placeholder: e.g. Noa Cohen, ML engineer
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Commitments / התחייבויות
+      options:
+        - label: I follow the Code of Conduct, SAFETY.md and the review rules. / אני מתחייב/ת לקוד ההתנהגות, לכללי הבטיחות ולכללי הבדיקה.
+          required: true
