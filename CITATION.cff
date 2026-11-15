@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use OpenEngram in your work, please cite it as below, and also cite the datasets you used (see DATA.md)."
+title: "OpenEngram: open, community-built research on dementia"
+type: software
+authors:
+  - family-names: Abramov
+    given-names: David
+    alias: LorDave1
+  - name: "OpenEngram contributors"
+repository-code: "https://github.com/LorDave1/openengram"
+url: "https://lordave1.github.io/openengram/"
+license: Apache-2.0
+keywords:
+  - dementia
+  - alzheimers-disease
+  - frontotemporal-dementia
+  - eeg
+  - machine-learning
+  - open-science
