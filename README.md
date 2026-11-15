@@ -8,6 +8,8 @@ Founded by David Abramov. Anyone can contribute: code, data analysis, domain kno
 literature reviews, or plain-language explanations. You don't need to be a scientist
 to help, and scientists are very welcome too.
 
+🌐 **Website:** https://lordave1.github.io/openengram/ (English + עברית)
+
 > ⚠️ **Research only. Not a medical device.** Nothing here diagnoses, treats or gives
 > medical advice to anyone. See [SAFETY.md](SAFETY.md).
 

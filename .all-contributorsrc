@@ -1,0 +1,19 @@
+{
+  "projectName": "openengram",
+  "projectOwner": "LorDave1",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": ["CONTRIBUTORS.md"],
+  "imageSize": 80,
+  "commit": false,
+  "contributorsPerLine": 6,
+  "contributors": [
+    {
+      "login": "LorDave1",
+      "name": "David Abramov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/162626696?v=4",
+      "profile": "https://github.com/LorDave1",
+      "contributions": ["projectManagement", "ideas", "code", "maintenance"]
+    }
+  ]
+}

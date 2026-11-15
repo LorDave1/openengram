@@ -1,0 +1,20 @@
+name: 🐞 Something is broken / משהו לא עובד
+description: A bug in the code, a broken link, or a result you can't reproduce.
+labels: ["bug", "triage"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: make eeg-baseline ...
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: macOS 15 / Python 3.12 / commit abc123

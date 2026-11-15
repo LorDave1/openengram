@@ -1,0 +1,64 @@
+name: 💡 Share knowledge (no code needed) / לשתף ידע (בלי קוד)
+description: An idea, a paper, a dataset, expert feedback or a plain-language explanation.
+title: "[knowledge] "
+labels: ["no-code", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you! You don't need to be a programmer or a scientist to help. Write in English or Hebrew.
+        תודה! לא צריך להיות מתכנת או מדען כדי לעזור. אפשר לכתוב בעברית או באנגלית.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What are you sharing? / מה אתם משתפים?
+      options:
+        - An idea or research question / רעיון או שאלת מחקר
+        - A paper or article / מאמר
+        - An open dataset / מאגר נתונים פתוח
+        - Feedback on our method or results / משוב על השיטה או התוצאות
+        - A plain-language explanation or translation / הסבר בשפה פשוטה או תרגום
+        - Something else / משהו אחר
+    validations:
+      required: true
+  - type: dropdown
+    id: module
+    attributes:
+      label: Which part of the project? / לאיזה חלק בפרויקט?
+      options:
+        - EEG and dementia
+        - Tau spread simulation
+        - Drug repurposing
+        - Speech markers
+        - A new area / תחום חדש
+        - Not sure / לא בטוח
+  - type: textarea
+    id: details
+    attributes:
+      label: Tell us more / ספרו לנו
+      description: Links, why it matters, and anything we should know. / קישורים, למה זה חשוב, וכל מה שכדאי שנדע.
+    validations:
+      required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: Are you a medical or scientific professional? / האם אתם אנשי מקצוע ברפואה או במדע?
+      description: Expert ideas get the "from-expert" label so developers can find and build them.
+      options:
+        - Yes, clinician (doctor, nurse, therapist) / כן, איש/אשת קליניקה
+        - Yes, researcher or professor / כן, חוקר/ת או פרופסור
+        - No / לא
+  - type: input
+    id: background
+    attributes:
+      label: Your background (optional) / הרקע שלכם (לא חובה)
+      placeholder: e.g. neurologist, caregiver, student, data engineer
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Ground rules / כללי יסוד
+      options:
+        - label: I'm not sharing anyone's private or medical data. / אני לא משתף מידע אישי או רפואי של אף אחד.
+          required: true
+        - label: I understand this project is research only and gives no medical advice. / אני מבין שזה פרויקט מחקר בלבד ולא נותן ייעוץ רפואי.
+          required: true

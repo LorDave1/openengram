@@ -1,0 +1,35 @@
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python files compile
+        run: python -m compileall -q modules scripts
+      - name: No data files or large files committed
+        run: |
+          bad=$(git ls-files | grep -Ei '\.(edf|bdf|set|fdt|fif|vhdr|eeg|npy|npz|parquet|h5|hdf5|pkl|pt|ckpt|wav|mp3|csv\.gz)$' || true)
+          big=$(git ls-files -z | xargs -0 -I{} find {} -maxdepth 0 -type f -size +5M || true)
+          if [ -n "$bad$big" ]; then
+            echo "Data or large files must not be committed (add a download script instead):"
+            echo "$bad"; echo "$big"; exit 1
+          fi
+      - name: Safety wording
+        run: |
+          # Flags phrases that present research output as a medical diagnosis.
+          hits=$(git grep -nIiE 'diagnoses (alzheimer|dementia|ftd)|detects (alzheimer|dementia)|(clinically|medically) (proven|validated)|cure[sd]? (alzheimer|dementia)' -- . ':!SAFETY.md' ':!.github/workflows/checks.yml' || true)
+          if [ -n "$hits" ]; then
+            echo "Please rephrase as a research result on a dataset (see SAFETY.md):"; echo "$hits"; exit 1
+          fi
