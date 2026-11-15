@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OpenEngram</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="OpenEngram is an open, community-built research project for understanding and detecting dementia. Founded by David Abramov. Research only, not a medical device.">
+<meta property="og:title" content="OpenEngram: open research on dementia">
+<meta property="og:description" content="An open, community-built research workspace for understanding and detecting dementia. Anyone can contribute.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column on a pale "electrode chart" ground; hero shows a strip of EEG traces like a montage printout, sections follow as plain bands. */
+:root {
+  --bg: #f3f6f8;
+  --surface: #ffffff;
+  --ink: #142230;
+  --muted: #566877;
+  --line: #d6dfe6;
+  --accent: #2b55d9;
+  --accent-ink: #ffffff;
+  --trace: #2b55d9;
+  --trace-slow: #c4562f;
+  --chance: #9aa9b5;
+  --warn-bg: #fff4e5;
+  --warn-ink: #7a4300;
+  --font-display: "Rubik", "IBM Plex Sans Hebrew", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "IBM Plex Sans Hebrew", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --step--1: 0.875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: 1.6rem;
+  --step-3: 2.2rem;
+  --step-4: clamp(2.5rem, 6vw, 3.6rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e151c; --surface: #16212b; --ink: #e6edf2; --muted: #9aabb8; --line: #263542;
+    --accent: #7c9cff; --accent-ink: #0e151c; --trace: #7c9cff; --trace-slow: #f08a5d; --chance: #5d6f7d;
+    --warn-bg: #2b2112; --warn-ink: #f4c58a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e151c; --surface: #16212b; --ink: #e6edf2; --muted: #9aabb8; --line: #263542;
+  --accent: #7c9cff; --accent-ink: #0e151c; --trace: #7c9cff; --trace-slow: #f08a5d; --chance: #5d6f7d;
+  --warn-bg: #2b2112; --warn-ink: #f4c58a; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: var(--step-0); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+#app[dir="rtl"] { font-family: "IBM Plex Sans Hebrew", var(--font-body); }
+#app[data-lang="en"] [lang="he"], #app[data-lang="he"] [lang="en"] { display: none !important; }
+.wrap {
+  max-width: 1040px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: var(--step-4); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: var(--step-3); font-weight: 600; }
+h3 { font-size: var(--step-1); font-weight: 600; }
+p { margin: 0; max-width: 65ch; }
+.eyebrow { font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+#app[dir="rtl"] .eyebrow { letter-spacing: 0; }
+
+/* top bar */
+header.top { border-bottom: 1px solid var(--line); background: var(--bg); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; flex-wrap: wrap; }
+.brand { font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.brand svg { flex: none; }
+nav.links { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; font-size: var(--step--1); }
+nav.links a { color: var(--muted); text-decoration: none; }
+nav.links a:hover { color: var(--ink); }
+.langswitch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+.langswitch button { font: inherit; font-size: var(--step--1); background: none; border: 0; color: var(--muted); padding: 4px 12px; cursor: pointer; }
+.langswitch button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+/* hero */
+.hero { padding-block: 56px 40px; }
+.hero .grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; }
+.hero .copy { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.hero .lede { font-size: var(--step-1); color: var(--muted); }
+.founder { font-size: var(--step--1); color: var(--muted); }
+.founder strong { color: var(--ink); font-weight: 600; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: var(--step-0); border: 1px solid var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); }
+.btn.ghost { color: var(--accent); background: transparent; }
+.badge { display: inline-flex; gap: 8px; align-items: flex-start; background: var(--warn-bg); color: var(--warn-ink); border-radius: 8px; padding: 10px 14px; font-size: var(--step--1); line-height: 1.45; }
+.montage { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 14px 10px; min-width: 0; }
+.montage canvas { width: 100%; height: 260px; display: block; }
+.montage .cap { display: flex; justify-content: space-between; gap: 12px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); margin-top: 6px; flex-wrap: wrap; }
+.legend-dot { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin-inline-end: 6px; }
+
+section.band { padding-block: 56px; border-top: 1px solid var(--line); }
+section.band .head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+section.band .head p { color: var(--muted); }
+
+/* modules */
+.modules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.module { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.module .status { font-family: var(--font-mono); font-size: 0.78rem; display: inline-flex; align-items: center; gap: 6px; color: var(--muted); }
+.module .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--chance); }
+.module.live .status { color: var(--accent); }
+.module.live .status::before { background: var(--accent); }
+.module p { color: var(--muted); font-size: 0.98rem; }
+.module a.more { font-size: var(--step--1); font-weight: 600; text-decoration: none; margin-top: auto; }
+
+/* results chart */
+.results { display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: start; }
+.chart { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; min-width: 0; }
+.row { display: grid; grid-template-columns: 9.5rem 1fr 3.4rem; gap: 12px; align-items: center; padding-block: 10px; }
+.row + .row { border-top: 1px dashed var(--line); }
+.row .lbl { font-size: 0.95rem; font-weight: 500; }
+.track { position: relative; height: 22px; background: color-mix(in srgb, var(--line) 45%, transparent); border-radius: 4px; }
+.bar { position: absolute; inset-block: 0; inset-inline-start: 0; background: var(--accent); border-radius: 4px; }
+.chancemark { position: absolute; inset-block: -5px; width: 2px; background: var(--ink); }
+.val { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 500; text-align: end; }
+.axis { display: grid; grid-template-columns: 9.5rem 1fr 3.4rem; gap: 12px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+.axis .ticks { position: relative; height: 16px; }
+.axis .ticks span { position: absolute; transform: translateX(-50%); }
+#app[dir="rtl"] .axis .ticks span { transform: translateX(50%); }
+.chart .key { display: flex; gap: 18px; flex-wrap: wrap; font-size: 0.8rem; color: var(--muted); margin-top: 14px; }
+.chart .key i { display: inline-block; vertical-align: middle; margin-inline-end: 6px; }
+.notes { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.notes ul { margin: 0; padding-inline-start: 1.1rem; color: var(--muted); display: flex; flex-direction: column; gap: 6px; }
+.mono { font-family: var(--font-mono); font-size: 0.85em; }
+
+/* contribute */
+.roles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.role { padding: 18px 0; border-top: 2px solid var(--ink); display: flex; flex-direction: column; gap: 8px; }
+.role p { color: var(--muted); font-size: 0.98rem; }
+.steps { margin: 32px 0 0; padding: 0; list-style: none; counter-reset: s; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 16px; font-size: 0.95rem; display: flex; flex-direction: column; gap: 6px; }
+.steps li::before { content: counter(s); font-family: var(--font-mono); color: var(--accent); font-weight: 500; }
+
+.doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 36px; }
+.door { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: var(--ink); transition: border-color .15s; }
+.door:hover { border-color: var(--accent); }
+.door:first-child { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.door > span:last-child { color: var(--muted); font-size: .95rem; }
+.door strong { font-family: var(--font-display); font-size: var(--step-1); font-weight: 600; line-height: 1.25; }
+.credits { margin-top: 40px; display: flex; flex-direction: column; gap: 14px; }
+.people { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 18px; }
+.people a { display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; color: var(--ink); width: 96px; text-align: center; font-size: .85rem; }
+.people img { border-radius: 50%; border: 1px solid var(--line); background: var(--surface); }
+.people small { color: var(--muted); font-family: var(--font-mono); font-size: .7rem; }
+
+/* safety */
+.rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 32px; margin: 0; padding: 0; list-style: none; }
+.rules li { display: flex; flex-direction: column; gap: 4px; padding-block: 10px; border-bottom: 1px solid var(--line); }
+.rules li span { color: var(--muted); font-size: 0.95rem; }
+
+footer { border-top: 1px solid var(--line); padding-block: 32px 48px; color: var(--muted); font-size: var(--step--1); }
+footer .wrap { display: flex; flex-direction: column; gap: 8px; }
+
+@media (max-width: 820px) {
+  .hero .grid, .results { grid-template-columns: 1fr; }
+  .roles, .doors { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .modules, .rules, .steps { grid-template-columns: 1fr; }
+  .row, .axis { grid-template-columns: 6.8rem 1fr 3rem; gap: 8px; }
+  .row .lbl { font-size: 0.85rem; }
+  nav.links .opt { display: none; }
+  .hero { padding-block: 36px 28px; }
+  .montage canvas { height: 200px; }
+}
+</style>
+</head>
+<body>
+<div id="app" data-lang="en" dir="ltr">
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="OpenEngram">
+      <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 15 L9 15 L11 9 L14 20 L17 11 L19 15 L24 15" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      OpenEngram
+    </a>
+    <nav class="links" aria-label="Sections">
+      <a class="opt" href="#modules"><span lang="en">Modules</span><span lang="he">מודולים</span></a>
+      <a class="opt" href="#results"><span lang="en">Results</span><span lang="he">תוצאות</span></a>
+      <a href="#contribute"><span lang="en">Contribute</span><span lang="he">איך לתרום</span></a>
+      <a href="https://github.com/LorDave1/openengram">GitHub</a>
+      <span class="langswitch" role="group" aria-label="Language">
+        <button type="button" id="btn-en" data-set="en" aria-pressed="true">EN</button>
+        <button type="button" id="btn-he" data-set="he" aria-pressed="false">עב</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap grid">
+    <div class="copy">
+      <span class="eyebrow"><span lang="en">Open-source dementia research</span><span lang="he">מחקר דמנציה בקוד פתוח</span></span>
+      <h1>
+        <span lang="en">Protecting the traces memories leave behind.</span>
+        <span lang="he">לשמור על העקבות שהזיכרונות משאירים.</span>
+      </h1>
+      <p class="lede">
+        <span lang="en">An engram is the physical trace a memory leaves in the brain. OpenEngram is an open, community-built workspace where anyone can help study how dementia erases those traces, and how we might detect it earlier.</span>
+        <span lang="he">"אנגרם" הוא העקבה הפיזית שזיכרון משאיר במוח. OpenEngram הוא מרחב מחקר פתוח שהקהילה בונה יחד, שבו כל אחד יכול לעזור לחקור איך דמנציה מוחקת את העקבות האלה, ואיך אפשר לזהות אותה מוקדם יותר.</span>
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="#contribute"><span lang="en">Start contributing</span><span lang="he">להתחיל לתרום</span></a>
+        <a class="btn ghost" href="https://github.com/LorDave1/openengram"><span lang="en">View the code</span><span lang="he">לקוד ב-GitHub</span></a>
+      </div>
+      <p class="founder">
+        <span lang="en">Founded by <strong>David Abramov</strong>. Built in the open with everyone who joins.</span>
+        <span lang="he">נוסד על ידי <strong>דוד אברמוב</strong>. נבנה בגלוי, יחד עם כל מי שמצטרף.</span>
+      </p>
+      <div class="badge" role="note">
+        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style="flex:none;margin-top:2px"><path d="M8 1.5 L15 14 H1 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 6v3.5M8 11.4v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span lang="en">Research only. Not a medical device. Nothing here diagnoses, treats or advises any person. If you are worried about memory, please see a doctor.</span>
+        <span lang="he">מחקר בלבד. זה לא מכשיר רפואי. שום דבר כאן לא מאבחן, לא מטפל ולא נותן ייעוץ רפואי. מי שמודאג לגבי הזיכרון, כדאי לפנות לרופא.</span>
+      </div>
+    </div>
+    <figure class="montage" style="margin:0">
+      <canvas id="eeg" aria-label="Illustration of four EEG channels" role="img"></canvas>
+      <figcaption class="cap">
+        <span><i class="legend-dot" style="background:var(--trace)"></i><span lang="en">alpha 8–13 Hz</span><span lang="he">אלפא 8–13 הרץ</span>
+          &nbsp; <i class="legend-dot" style="background:var(--trace-slow)"></i><span lang="en">theta 4–8 Hz</span><span lang="he">תטא 4–8 הרץ</span></span>
+        <span lang="en">Illustration, not patient data</span><span lang="he">איור להמחשה, לא נתוני מטופלים</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="band" id="why">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow"><span lang="en">Why open</span><span lang="he">למה פתוח</span></span>
+      <h2><span lang="en">No single person has all the pieces.</span><span lang="he">לאף אחד אין לבד את כל החלקים.</span></h2>
+      <p>
+        <span lang="en">Dementia affects tens of millions of people. Useful public data and methods are scattered across papers and repositories. OpenEngram puts reproducible, open pipelines in one place, so a programmer, a neurologist, a student and a caregiver can each add what they know and build on each other's work. You don't need to be a scientist to help, and scientists are very welcome.</span>
+        <span lang="he">דמנציה פוגעת בעשרות מיליוני אנשים. נתונים ושיטות ציבוריים מפוזרים בין מאמרים ומאגרים שונים. OpenEngram מרכז במקום אחד תהליכי עבודה פתוחים שכל אחד יכול להריץ ולשחזר, כך שמתכנתת, נוירולוג, סטודנטית ומטפל יכולים כל אחד להוסיף את מה שהוא יודע ולבנות על העבודה של האחרים. לא צריך להיות מדען כדי לעזור, ומדענים מוזמנים מאוד.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="modules">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow"><span lang="en">What we're working on</span><span lang="he">על מה עובדים</span></span>
+      <h2><span lang="en">Four research modules</span><span lang="he">ארבעה מודולי מחקר</span></h2>
+      <p><span lang="en">Each module is a self-contained folder with its own question, open data, code and results. Three are waiting for someone to lead them.</span><span lang="he">כל מודול הוא תיקייה עצמאית עם שאלה משלו, נתונים פתוחים, קוד ותוצאות. שלושה מהם מחכים למישהו שיוביל אותם.</span></p>
+    </div>
+    <div class="modules">
+      <article class="module live">
+        <span class="status"><span lang="en">Baseline working</span><span lang="he">גרסה ראשונה עובדת</span></span>
+        <h3><span lang="en">EEG and dementia</span><span lang="he">EEG ודמנציה</span></h3>
+        <p><span lang="en">Can a routine resting brain-wave recording tell Alzheimer's or frontotemporal dementia apart from healthy aging?</span><span lang="he">האם בדיקת גלי מוח שגרתית במנוחה יכולה להבדיל בין אלצהיימר או דמנציה פרונטו-טמפורלית לבין הזדקנות בריאה?</span></p>
+        <a class="more" href="https://github.com/LorDave1/openengram/tree/main/modules/eeg_dementia"><span lang="en">Open module →</span><span lang="he">למודול ←</span></a>
+      </article>
+      <article class="module">
+        <span class="status"><span lang="en">Open for a lead</span><span lang="he">מחפש מוביל/ה</span></span>
+        <h3><span lang="en">Tau spread simulation</span><span lang="he">סימולציית התפשטות טאו</span></h3>
+        <p><span lang="en">Simulate how misfolded tau protein spreads along the brain's wiring, and compare with known Braak stages.</span><span lang="he">לדמות איך חלבון טאו פגום מתפשט לאורך החיווט של המוח, ולהשוות לשלבי בראק הידועים.</span></p>
+        <a class="more" href="https://github.com/LorDave1/openengram/tree/main/modules/tau_spread_simulation"><span lang="en">Open module →</span><span lang="he">למודול ←</span></a>
+      </article>
+      <article class="module">
+        <span class="status"><span lang="en">Open for a lead</span><span lang="he">מחפש מוביל/ה</span></span>
+        <h3><span lang="en">Drug repurposing</span><span lang="he">שימוש חוזר בתרופות</span></h3>
+        <p><span lang="en">Rank already-approved drugs by their links to dementia genes and pathways in open knowledge graphs. Hypotheses for researchers only.</span><span lang="he">לדרג תרופות שכבר מאושרות לפי הקשר שלהן לגנים ולמסלולים של דמנציה בגרפי ידע פתוחים. השערות לחוקרים בלבד.</span></p>
+        <a class="more" href="https://github.com/LorDave1/openengram/tree/main/modules/drug_repurposing"><span lang="en">Open module →</span><span lang="he">למודול ←</span></a>
+      </article>
+      <article class="module">
+        <span class="status"><span lang="en">Open for a lead</span><span lang="he">מחפש מוביל/ה</span></span>
+        <h3><span lang="en">Speech markers</span><span lang="he">סמנים בדיבור</span></h3>
+        <p><span lang="en">Early changes in speech and language, such as pauses, vocabulary and sentence complexity, using openly licensed recordings.</span><span lang="he">שינויים מוקדמים בדיבור ובשפה, כמו הפסקות, אוצר מילים ומורכבות משפטים, מתוך הקלטות ברישיון פתוח.</span></p>
+        <a class="more" href="https://github.com/LorDave1/openengram/tree/main/modules/speech_markers"><span lang="en">Open module →</span><span lang="he">למודול ←</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="results">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow"><span lang="en">First result · OpenNeuro ds004504</span><span lang="he">תוצאה ראשונה · OpenNeuro ds004504</span></span>
+      <h2><span lang="en">What 15 minutes of resting EEG can show</span><span lang="he">מה אפשר לראות מ-15 דקות של EEG במנוחה</span></h2>
+      <p><span lang="en">88 people from one hospital: 36 with Alzheimer's, 23 with frontotemporal dementia (FTD), 29 healthy. Each person is tested only on a model that never saw their recordings.</span><span lang="he">88 אנשים מבית חולים אחד: 36 עם אלצהיימר, 23 עם דמנציה פרונטו-טמפורלית (FTD), ו-29 בריאים. כל אדם נבדק רק על ידי מודל שמעולם לא ראה את ההקלטות שלו.</span></p>
+    </div>
+    <div class="results">
+      <figure class="chart" style="margin:0" aria-label="Accuracy per person compared with chance level">
+        <div id="bars"></div>
+        <div class="axis" aria-hidden="true"><span></span><div class="ticks" id="ticks"></div><span></span></div>
+        <div class="key">
+          <span><i style="width:14px;height:10px;background:var(--accent);border-radius:2px"></i><span lang="en">accuracy per person</span><span lang="he">דיוק לכל אדם</span></span>
+          <span><i style="width:2px;height:14px;background:var(--ink)"></i><span lang="en">chance (always guessing the larger group)</span><span lang="he">רמת ניחוש (תמיד לנחש את הקבוצה הגדולה)</span></span>
+        </div>
+      </figure>
+      <div class="notes">
+        <div>
+          <h3><span lang="en">In plain words</span><span lang="he">במילים פשוטות</span></h3>
+          <p style="margin-top:8px"><span lang="en">From brain-wave rhythms alone, the model tells a person with Alzheimer's from a healthy person about 5 times out of 6, where guessing gets about half right. Slow theta rhythms rise and alpha falls. Telling Alzheimer's and FTD apart barely beats guessing: that is the hardest open problem here, and a good place to help.</span><span lang="he">רק מתוך מקצבי גלי המוח, המודל מבדיל בין אדם עם אלצהיימר לאדם בריא בערך 5 פעמים מתוך 6, כשניחוש מצליח בערך בחצי. מקצבי תטא האיטיים עולים ומקצבי אלפא יורדים. ההבחנה בין אלצהיימר ל-FTD בקושי עוברת את רמת הניחוש. זו הבעיה הפתוחה הקשה ביותר כאן, ומקום טוב לעזור בו.</span></p>
+        </div>
+        <div>
+          <h3><span lang="en">Limits we know about</span><span lang="he">מגבלות שאנחנו יודעים עליהן</span></h3>
+          <ul style="margin-top:8px">
+            <li><span lang="en">Small sample from one hospital. Results may differ elsewhere.</span><span lang="he">מדגם קטן מבית חולים אחד. התוצאות עשויות להיות שונות במקומות אחרים.</span></li>
+            <li><span lang="en">Best of 4 setups per task, which is mildly optimistic. Nested cross-validation is next.</span><span lang="he">הוצגה ההגדרה הטובה מבין 4 לכל משימה, וזה מעט אופטימי. השלב הבא הוא אימות צולב מקונן.</span></li>
+            <li><span lang="en">A research benchmark, not a test for any individual.</span><span lang="he">זו השוואה מחקרית, לא בדיקה לאדם מסוים.</span></li>
+          </ul>
+        </div>
+        <p class="mono" style="color:var(--muted)"><span lang="en">Data: Miltiadous et al. (2023), CC0. doi:10.18112/openneuro.ds004504.v1.0.9</span><span lang="he">נתונים: Miltiadous et al. (2023), CC0. doi:10.18112/openneuro.ds004504.v1.0.9</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="contribute">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow"><span lang="en">Join in</span><span lang="he">להצטרף</span></span>
+      <h2><span lang="en">There's a place for what you know</span><span lang="he">יש מקום למה שאתם יודעים</span></h2>
+      <p><span lang="en">Pick the path that fits you. Every contributor is credited in the project.</span><span lang="he">בחרו את הדרך שמתאימה לכם. כל מי שתורם מקבל קרדיט בפרויקט.</span></p>
+    </div>
+    <div class="doors">
+      <a class="door" href="https://github.com/LorDave1/openengram/issues/new?template=01-share-knowledge.yml">
+        <span class="eyebrow"><span lang="en">No code needed</span><span lang="he">בלי קוד</span></span>
+        <strong><span lang="en">Share an idea, paper or dataset</span><span lang="he">לשתף רעיון, מאמר או מאגר נתונים</span></strong>
+        <span><span lang="en">A short form, in English or Hebrew. We turn it into a task for the community.</span><span lang="he">טופס קצר, בעברית או באנגלית. אנחנו הופכים אותו למשימה לקהילה.</span></span>
+      </a>
+      <a class="door" href="https://github.com/LorDave1/openengram/discussions">
+        <span class="eyebrow"><span lang="en">Talk</span><span lang="he">לדבר</span></span>
+        <strong><span lang="en">Ask a question or say hello</span><span lang="he">לשאול שאלה או להגיד שלום</span></strong>
+        <span><span lang="en">The community forum. Introduce yourself and tell us what you'd like to work on.</span><span lang="he">פורום הקהילה. ספרו מי אתם ועל מה תרצו לעבוד.</span></span>
+      </a>
+      <a class="door" href="https://github.com/LorDave1/openengram/issues?q=is%3Aopen+label%3A%22good+first+issue%22">
+        <span class="eyebrow"><span lang="en">Code and analysis</span><span lang="he">קוד וניתוח</span></span>
+        <strong><span lang="en">Pick a starter task</span><span lang="he">לבחור משימה למתחילים</span></strong>
+        <span><span lang="en">Small, well-defined tasks that are a good way into the code.</span><span lang="he">משימות קטנות ומוגדרות היטב, דרך טובה להיכנס לקוד.</span></span>
+      </a>
+    </div>
+    <div class="roles">
+      <div class="role">
+        <h3><span lang="en">Developers and data people</span><span lang="he">מפתחים ואנשי נתונים</span></h3>
+        <p><span lang="en">Improve the EEG pipeline, add connectivity features or a small neural network, or start one of the open modules in Python.</span><span lang="he">לשפר את תהליך ה-EEG, להוסיף מאפייני קישוריות או רשת נוירונים קטנה, או להתחיל אחד מהמודולים הפתוחים ב-Python.</span></p>
+      </div>
+      <div class="role">
+        <h3><span lang="en">Clinicians and researchers</span><span lang="he">רופאים וחוקרים</span></h3>
+        <p><span lang="en">Point out flaws in the method, suggest better questions, link papers, or review results before they're shared.</span><span lang="he">להצביע על בעיות בשיטה, להציע שאלות טובות יותר, לקשר למאמרים, או לבדוק תוצאות לפני שהן מתפרסמות.</span></p>
+      </div>
+      <div class="role">
+        <h3><span lang="en">Writers, translators, everyone</span><span lang="he">כותבים, מתרגמים, כולם</span></h3>
+        <p><span lang="en">Explain results in plain language, translate docs, find openly licensed datasets, or simply star and share the project.</span><span lang="he">להסביר תוצאות בשפה פשוטה, לתרגם מסמכים, למצוא מאגרי נתונים ברישיון פתוח, או פשוט לסמן כוכב ולשתף את הפרויקט.</span></p>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><strong><span lang="en">Find a task</span><span lang="he">למצוא משימה</span></strong><span><a href="https://github.com/LorDave1/openengram/issues?q=is%3Aopen+label%3A%22good+first+issue%22"><span lang="en">Good first issues</span><span lang="he">משימות למתחילים</span></a></span></li>
+      <li><strong><span lang="en">Say hello</span><span lang="he">להגיד שלום</span></strong><span><span lang="en">Comment on the issue so we don't duplicate work.</span><span lang="he">להגיב על המשימה כדי שלא נעבוד על אותו דבר.</span></span></li>
+      <li><strong><span lang="en">Make the change</span><span lang="he">לבצע את השינוי</span></strong><span><span lang="en">Fork, branch, and follow the</span><span lang="he">ליצור עותק וענף, ולפעול לפי</span> <a href="https://github.com/LorDave1/openengram/blob/main/CONTRIBUTING.md"><span lang="en">guide</span><span lang="he">המדריך</span></a>.</span></li>
+      <li><strong><span lang="en">Open a pull request</span><span lang="he">לפתוח בקשת שינוי</span></strong><span><span lang="en">Add yourself to CONTRIBUTORS.md.</span><span lang="he">להוסיף את עצמכם ל-CONTRIBUTORS.md.</span></span></li>
+    </ol>
+    <div class="credits">
+      <h3><span lang="en">People building OpenEngram</span><span lang="he">האנשים שבונים את OpenEngram</span></h3>
+      <ul id="people" class="people"><li><a href="https://github.com/LorDave1"><img src="https://avatars.githubusercontent.com/u/162626696?s=96" alt="" width="48" height="48"><span>David Abramov</span><small><span lang="en">founder</span><span lang="he">מייסד</span></small></a></li></ul>
+      <p style="color:var(--muted);font-size:.95rem"><span lang="en">Every contribution counts, including ideas, reviews, translations and data finds, not only code.</span><span lang="he">כל תרומה נחשבת, כולל רעיונות, ביקורת, תרגום ומציאת נתונים, לא רק קוד.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="safety">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow"><span lang="en">Ground rules</span><span lang="he">כללי יסוד</span></span>
+      <h2><span lang="en">How we keep the work honest and safe</span><span lang="he">איך שומרים על עבודה כנה ובטוחה</span></h2>
+    </div>
+    <ul class="rules">
+      <li><strong><span lang="en">Research only</span><span lang="he">מחקר בלבד</span></strong><span><span lang="en">Never used to diagnose, screen or advise a real person.</span><span lang="he">לעולם לא משמש לאבחון, סינון או ייעוץ לאדם אמיתי.</span></span></li>
+      <li><strong><span lang="en">Open data only</span><span lang="he">רק נתונים פתוחים</span></strong><span><span lang="en">Public, de-identified datasets with their license recorded. No private patient data.</span><span lang="he">מאגרים ציבוריים ללא פרטים מזהים, עם רישיון מתועד. אין נתוני מטופלים פרטיים.</span></span></li>
+      <li><strong><span lang="en">Split by person</span><span lang="he">חלוקה לפי אדם</span></strong><span><span lang="en">A model is never tested on someone it trained on.</span><span lang="he">מודל אף פעם לא נבדק על אדם שהוא התאמן עליו.</span></span></li>
+      <li><strong><span lang="en">Report honestly</span><span lang="he">דיווח כן</span></strong><span><span lang="en">Show chance level, spread across repeats, and what didn't work.</span><span lang="he">להראות רמת ניחוש, פיזור בין חזרות, ומה לא עבד.</span></span></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span><span lang="en">OpenEngram · founded by David Abramov and built with its</span><span lang="he">OpenEngram · נוסד על ידי דוד אברמוב ונבנה יחד עם</span> <a href="https://github.com/LorDave1/openengram/blob/main/CONTRIBUTORS.md"><span lang="en">contributors</span><span lang="he">התורמים</span></a>.</span>
+    <span><span lang="en">Code under Apache License 2.0, documentation under CC BY 4.0. Research only, not medical advice.</span><span lang="he">קוד ברישיון Apache 2.0, תיעוד ברישיון CC BY 4.0. מחקר בלבד, לא ייעוץ רפואי.</span></span>
+  </div>
+</footer>
+</div>
+
+<script>
+(function () {
+  var app = document.getElementById('app');
+  function setLang(l) {
+    app.dataset.lang = l;
+    app.dir = l === 'he' ? 'rtl' : 'ltr';
+    document.documentElement.lang = l;
+    document.getElementById('btn-en').setAttribute('aria-pressed', l === 'en');
+    document.getElementById('btn-he').setAttribute('aria-pressed', l === 'he');
+    try { localStorage.setItem('oe-lang', l); } catch (e) {}
+    drawEEG();
+  }
+  var start = 'en';
+  try { start = localStorage.getItem('oe-lang') || ''; } catch (e) { start = ''; }
+  if (location.hash === '#he') start = 'he';
+  if (location.hash === '#en') start = 'en';
+  if (!start) start = (navigator.language || '').slice(0, 2) === 'he' ? 'he' : 'en';
+  document.querySelectorAll('.langswitch button').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.dataset.set); });
+  });
+
+  // Results chart: best per-person accuracy per task vs chance (results/baseline.json)
+  var data = [
+    { en: 'Alzheimer’s vs healthy', he: 'אלצהיימר מול בריאים', acc: 83.6, chance: 55.4 },
+    { en: 'FTD vs healthy', he: 'FTD מול בריאים', acc: 75.0, chance: 55.8 },
+    { en: 'Alzheimer’s vs FTD', he: 'אלצהיימר מול FTD', acc: 68.9, chance: 61.0 },
+    { en: 'All 3 groups', he: 'שלוש הקבוצות', acc: 64.4, chance: 40.9 }
+  ];
+  var bars = document.getElementById('bars');
+  data.forEach(function (d) {
+    var r = document.createElement('div'); r.className = 'row';
+    r.innerHTML = '<span class="lbl"><span lang="en">' + d.en + '</span><span lang="he">' + d.he + '</span></span>' +
+      '<div class="track"><div class="bar" style="width:' + d.acc + '%"></div><div class="chancemark" style="inset-inline-start:calc(' + d.chance + '% - 1px)" title="chance ' + d.chance + '%"></div></div>' +
+      '<span class="val">' + d.acc.toFixed(1) + '%</span>';
+    bars.appendChild(r);
+  });
+  var ticks = document.getElementById('ticks');
+  [0, 25, 50, 75, 100].forEach(function (t) {
+    var s = document.createElement('span'); s.style.insetInlineStart = t + '%'; s.textContent = t + '%';
+    ticks.appendChild(s);
+  });
+
+  // Decorative EEG montage (synthetic signals)
+  var cv = document.getElementById('eeg');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var t0 = 0, raf = null;
+  var chans = ['O1', 'O2', 'P3', 'T5'];
+  function col(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || getComputedStyle(app).getPropertyValue(name).trim(); }
+  function sig(x, i, slow) {
+    var a = slow ? Math.sin(x * 0.034 + i) * 1.0 + Math.sin(x * 0.051 + i * 2) * 0.6
+                 : Math.sin(x * 0.12 + i) * 0.9 + Math.sin(x * 0.27 + i * 3) * 0.25;
+    return a + Math.sin(x * 0.9 + i * 7) * 0.12 + Math.sin(x * 1.7 + i) * 0.06;
+  }
+  function drawEEG() {
+    if (!cv) return;
+    var dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return;
+    cv.width = w * dpr; cv.height = h * dpr;
+    var c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.clearRect(0, 0, w, h);
+    var lineC = col('--line'), mut = col('--muted'), tr = col('--trace'), trs = col('--trace-slow');
+    var lane = h / chans.length, left = 34;
+    c.font = '11px "IBM Plex Mono", monospace'; c.textBaseline = 'middle';
+    for (var g = left; g < w; g += 40) { c.strokeStyle = lineC; c.globalAlpha = 0.5; c.beginPath(); c.moveTo(g, 0); c.lineTo(g, h); c.stroke(); }
+    c.globalAlpha = 1;
+    chans.forEach(function (ch, i) {
+      var y0 = lane * i + lane / 2, slow = i >= 2;
+      c.fillStyle = mut; c.fillText(ch, 0, y0);
+      c.strokeStyle = slow ? trs : tr; c.lineWidth = 1.4; c.beginPath();
+      for (var x = left; x <= w; x += 1.5) {
+        var y = y0 - sig(x + t0, i, slow) * lane * 0.22;
+        if (x === left) c.moveTo(x, y); else c.lineTo(x, y);
+      }
+      c.stroke();
+    });
+  }
+  function loop() { t0 += 0.8; drawEEG(); raf = requestAnimationFrame(loop); }
+  window.addEventListener('resize', drawEEG);
+
+  // Contributors wall: live from GitHub when available, founder shown always.
+  try {
+    fetch('https://api.github.com/repos/LorDave1/openengram/contributors?per_page=60').then(function (r) { return r.ok ? r.json() : []; }).then(function (list) {
+      var ul = document.getElementById('people');
+      (list || []).forEach(function (c) {
+        if (!c || c.type !== 'User' || c.login === 'LorDave1') return;
+        var li = document.createElement('li'), a = document.createElement('a'), img = document.createElement('img'), n = document.createElement('span');
+        a.href = c.html_url; img.src = c.avatar_url + '&s=96'; img.alt = ''; img.width = 48; img.height = 48; n.textContent = c.login;
+        a.appendChild(img); a.appendChild(n); li.appendChild(a); ul.appendChild(li);
+      });
+    }).catch(function () {});
+  } catch (e) {}
+  setLang(start);
+  if (!reduce) raf = requestAnimationFrame(loop);
+  if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawEEG);
+})();
+</script>
+</body>
+</html>

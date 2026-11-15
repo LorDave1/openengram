@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 Ask a question or just say hello / שאלה או סתם להגיד שלום
+    url: https://github.com/LorDave1/openengram/discussions
+    about: Open conversation, in English or Hebrew. No need to know Git.
+  - name: ⚠️ Worried about your own memory? / מודאגים לגבי הזיכרון?
+    url: https://github.com/LorDave1/openengram/blob/main/SAFETY.md
+    about: OpenEngram is research only and cannot assess anyone. Please talk to a doctor.

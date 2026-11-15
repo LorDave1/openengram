@@ -1,0 +1,40 @@
+name: 🧪 Propose or lead a module / להציע או להוביל מודול
+description: Plan new research work, such as leading tau simulation, drug repurposing or speech markers.
+title: "[module] proposal: "
+labels: ["proposal", "triage"]
+body:
+  - type: input
+    id: module
+    attributes:
+      label: Module name
+      placeholder: e.g. tau_spread_simulation
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Research question
+      description: One or two sentences a non-expert can follow.
+    validations:
+      required: true
+  - type: textarea
+    id: data
+    attributes:
+      label: Data and license
+      description: Which openly licensed dataset(s), with link, version/DOI and license.
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: Method and how you'll check it
+      description: Baseline, evaluation (split by person where relevant), chance level, what would count as a negative result.
+    validations:
+      required: true
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Rules
+      options:
+        - label: I've read CONTRIBUTING.md and SAFETY.md.
+          required: true
