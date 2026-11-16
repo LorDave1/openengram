@@ -6,44 +6,83 @@ and frontotemporal dementia (FTD) from healthy aging?
 **Data:** OpenNeuro ds004504 (CC0), 88 people: 36 AD, 23 FTD, 29 healthy controls (CN).
 We use the authors' preprocessed recordings. See [DATA.md](../../DATA.md).
 
-## Method (baseline)
+## Headline results (v2, nested cross-validation)
 
-1. `src/features.py`: cut each recording into 4 s windows (2 s step), 34,788 windows total.
-   Per window and per channel (19): relative power in delta/theta/alpha/beta/gamma, theta/alpha ratio,
-   slow/fast ratio, alpha peak frequency. 152 features.
-2. `src/baseline.py`: logistic regression and random forest.
-   - *subject*: average each person's windows into one row.
-   - *window*: classify windows, then average the probabilities per person.
-   - Splits are **by person** (`StratifiedGroupKFold`, 5 folds, repeated with different seeds;
-     a code assertion checks no person is in both train and test). All scores are per person.
+Accuracy per **person**, mean ± std over repeats. Every split is by person; model choice is made
+inside the training people only (nested CV), so these numbers are not tuned on the test people.
 
-## Results (accuracy per person, mean ± std over repeats)
-
-| Task | Chance | Best model | Accuracy | Balanced acc. | AUC |
+| Task | Chance | Age + sex only | **EEG v2 (nested)** | Balanced acc. | AUC |
 |---|---|---|---|---|---|
-| AD vs healthy | 55% | window + forest | **83.6% ± 0.7** | 83.5% | 0.89 |
-| AD vs healthy | 55% | window + logreg | 79.5% ± 1.5 | 79.1% | **0.91** |
-| FTD vs healthy | 56% | window + forest | **75.0%** | 72.6% | 0.83 |
-| AD vs FTD | 61% | window + logreg | 68.9% ± 0.8 | 62.8% | 0.63 |
-| 3 groups | 41% | window + forest | **64.4% ± 0.5** | 59.4% | 0.71 |
+| AD vs healthy | 55% | 59% | **87.2% ± 3.2** | 87.6% | 0.91 |
+| FTD vs healthy | 56% | 58% | **76.3% ± 1.8** | 74.2% | 0.83 |
+| AD vs FTD | 61% | 58% | 58.2% ± 0.8 | 51.9% | 0.60 |
+| 3 groups | 41% | n/a | **63.3% ± 2.7** | 59.2% | 0.78 |
 
-Full numbers for all 16 combinations: `results/baseline.json` (regenerate with `make eeg-baseline`).
+**In plain words:** from brain-wave patterns alone, the model correctly tells an Alzheimer's
+patient from a healthy person in about 7 out of 8 people, where guessing gets about half right.
+Age and sex alone only reach ~59%, so the EEG is doing the work. FTD vs healthy is about 3 in 4.
+Telling AD and FTD *apart* is still no better than chance with these features: that is the main
+open problem in this module.
 
-**In plain words:** from brain-wave rhythms alone, the model correctly tells an Alzheimer's
-patient from a healthy person about 5 times out of 6, where guessing gets about half right.
-The classic signal is that slow rhythms (theta) rise and alpha falls in dementia.
-FTD vs healthy is harder (3 out of 4). Telling AD and FTD *apart* barely beats guessing,
-which is the hardest and most clinically interesting open problem here.
+## Methods
+
+### v1 baseline (`features.py`, `baseline.py`)
+4 s windows (2 s step, 34,788 total). Per channel (19): relative band power (delta–gamma),
+theta/alpha and slow/fast ratios, alpha peak frequency (152 features). Logistic regression and
+random forest, repeated 5-fold `StratifiedGroupKFold` by person.
+
+### v2 features (`features_v2.py`), 1,007 per window
+- Per channel: log absolute and relative band power, ratios, peak frequency, **spectral entropy**,
+  **aperiodic (1/f) slope**, **Hjorth mobility and complexity**.
+- Per channel pair (171 pairs), theta and alpha bands: **coherence** and **weighted phase lag index**
+  (wPLI, robust to volume conduction).
+
+### v2 evaluation (`evaluate_v2.py`)
+Outer: 5-fold × 3 repeats by person. Inner: 3-fold by person on the training people picks one of
+logistic regression (spectral only), logistic regression (all), gradient boosting (all), or their
+ensemble. Training uses every 4th window (overlapping windows add little). Test windows are
+averaged into one probability per person.
+
+### Small CNN on raw EEG (`cnn.py`)
+EEGNet-style network on raw 4 s windows at 125 Hz, trained on Apple-silicon GPU (MPS), fixed
+20 epochs, 5-fold × 2 repeats by person.
+
+## All results
+
+| Task | v1 best (not nested) | v2 nested | v2 per model (outer only, for comparison) | CNN raw EEG |
+|---|---|---|---|---|
+| AD vs healthy | 83.6% | **87.2%** | logreg 89.7%, boosting 89.2%, ensemble 86.7% | 85.4% ± 2.3 (AUC 0.92) |
+| FTD vs healthy | 75.0% | **76.3%** | ensemble 78.2%, logreg 74.4%, boosting 74.4% | 69.2% ± 3.8 |
+| AD vs FTD | 68.9% (bal. 63%) | 58.2% (bal. 52%) | spectral logreg 66.7% (bal. 60%) | 65.3% (bal. 63%) |
+| 3 groups | 64.4% | **63.3%** | ensemble 66.7%, boosting 65.9% | 56.2% ± 6.2 |
+
+The "per model" column picks the best model after seeing the test people, so it is optimistic;
+the nested column is the honest number. Raw files: `results/baseline.json`, `results/v2_nested.json`,
+`results/cnn.json`.
+
+What we learned:
+- Connectivity and complexity features help AD vs healthy (+3.6 points, honestly measured).
+- The CNN is close but not better than hand-made features on 88 people. More data or pre-training would likely be needed.
+- For AD vs FTD, richer features made things worse (more features, same few people). Simpler,
+  targeted features or more data are needed.
+
+## Reproduce
+
+```bash
+make eeg-features-v2   # ~5 min
+make eeg-nested        # ~45 min, low priority
+make eeg-cnn           # ~30 min on Apple-silicon GPU
+```
 
 ## Limitations
 
-- Only 88 people from one hospital; numbers will vary on other populations and devices.
-- We compared 4 setups and report the best per task, which is mildly optimistic.
-  Proper next step: nested cross-validation.
+- Only 88 people from one hospital, so results may not carry over to other populations or devices.
+- The groups differ in sex balance (AD 33% male vs healthy 62%); age and sex alone reach ~59%.
+  The EEG result is far above that, but adjusting for these confounds properly is still to do.
 - Research only, see [SAFETY.md](../../SAFETY.md).
 
-## Good first contributions
+## Good next contributions
 
-- Connectivity features (coherence, phase-lag index) and spectral entropy.
-- A small CNN/transformer on raw windows (PyTorch, `PYTORCH_ENABLE_MPS_FALLBACK=1` on Apple silicon).
-- Nested CV and confidence intervals; age/sex as covariates (patients are older on average).
+- Confidence intervals by bootstrap over people.
+- Features aimed at AD vs FTD (frontal vs posterior asymmetry, frontal theta).
+- Pre-trained EEG foundation models, or adding other open dementia EEG datasets for more people.

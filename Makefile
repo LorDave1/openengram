@@ -12,3 +12,12 @@ eeg-features:
 
 eeg-baseline:
 	nice -n 10 $(PY) modules/eeg_dementia/src/baseline.py
+
+eeg-features-v2:
+	nice -n 10 $(PY) modules/eeg_dementia/src/features_v2.py
+
+eeg-nested:
+	nice -n 10 $(PY) modules/eeg_dementia/src/evaluate_v2.py
+
+eeg-cnn:
+	nice -n 10 $(PY) modules/eeg_dementia/src/cnn.py

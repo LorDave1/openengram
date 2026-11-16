@@ -1,0 +1,339 @@
+{
+  "AD_vs_CN": {
+    "n_people": {
+      "A": 36,
+      "C": 29
+    },
+    "chance_acc": 0.554,
+    "nested": {
+      "acc": [
+        0.872,
+        0.032
+      ],
+      "bal_acc": [
+        0.876,
+        0.033
+      ],
+      "auc": [
+        0.913,
+        0.001
+      ]
+    },
+    "picks": {
+      "boosting_all": 4,
+      "logreg_spectral": 1,
+      "logreg_all": 10
+    },
+    "per_model_outer_only": {
+      "logreg_spectral": {
+        "acc": [
+          0.805,
+          0.015
+        ],
+        "bal_acc": [
+          0.799,
+          0.015
+        ],
+        "auc": [
+          0.905,
+          0.007
+        ]
+      },
+      "logreg_all": {
+        "acc": [
+          0.897,
+          0.007
+        ],
+        "bal_acc": [
+          0.902,
+          0.008
+        ],
+        "auc": [
+          0.911,
+          0.004
+        ]
+      },
+      "boosting_all": {
+        "acc": [
+          0.892,
+          0.0
+        ],
+        "bal_acc": [
+          0.896,
+          0.0
+        ],
+        "auc": [
+          0.931,
+          0.001
+        ]
+      },
+      "ensemble": {
+        "acc": [
+          0.867,
+          0.007
+        ],
+        "bal_acc": [
+          0.873,
+          0.009
+        ],
+        "auc": [
+          0.933,
+          0.003
+        ]
+      }
+    }
+  },
+  "FTD_vs_CN": {
+    "n_people": {
+      "F": 23,
+      "C": 29
+    },
+    "chance_acc": 0.558,
+    "nested": {
+      "acc": [
+        0.763,
+        0.018
+      ],
+      "bal_acc": [
+        0.742,
+        0.02
+      ],
+      "auc": [
+        0.825,
+        0.009
+      ]
+    },
+    "picks": {
+      "boosting_all": 7,
+      "logreg_spectral": 1,
+      "ensemble": 4,
+      "logreg_all": 3
+    },
+    "per_model_outer_only": {
+      "logreg_spectral": {
+        "acc": [
+          0.731,
+          0.0
+        ],
+        "bal_acc": [
+          0.718,
+          0.0
+        ],
+        "auc": [
+          0.765,
+          0.002
+        ]
+      },
+      "logreg_all": {
+        "acc": [
+          0.744,
+          0.009
+        ],
+        "bal_acc": [
+          0.733,
+          0.01
+        ],
+        "auc": [
+          0.825,
+          0.001
+        ]
+      },
+      "boosting_all": {
+        "acc": [
+          0.744,
+          0.018
+        ],
+        "bal_acc": [
+          0.722,
+          0.018
+        ],
+        "auc": [
+          0.828,
+          0.002
+        ]
+      },
+      "ensemble": {
+        "acc": [
+          0.782,
+          0.009
+        ],
+        "bal_acc": [
+          0.764,
+          0.008
+        ],
+        "auc": [
+          0.836,
+          0.007
+        ]
+      }
+    }
+  },
+  "AD_vs_FTD": {
+    "n_people": {
+      "A": 36,
+      "F": 23
+    },
+    "chance_acc": 0.61,
+    "nested": {
+      "acc": [
+        0.582,
+        0.008
+      ],
+      "bal_acc": [
+        0.519,
+        0.006
+      ],
+      "auc": [
+        0.599,
+        0.009
+      ]
+    },
+    "picks": {
+      "boosting_all": 4,
+      "logreg_spectral": 7,
+      "logreg_all": 4
+    },
+    "per_model_outer_only": {
+      "logreg_spectral": {
+        "acc": [
+          0.667,
+          0.008
+        ],
+        "bal_acc": [
+          0.596,
+          0.01
+        ],
+        "auc": [
+          0.639,
+          0.005
+        ]
+      },
+      "logreg_all": {
+        "acc": [
+          0.61,
+          0.0
+        ],
+        "bal_acc": [
+          0.571,
+          0.0
+        ],
+        "auc": [
+          0.583,
+          0.004
+        ]
+      },
+      "boosting_all": {
+        "acc": [
+          0.576,
+          0.0
+        ],
+        "bal_acc": [
+          0.511,
+          0.0
+        ],
+        "auc": [
+          0.551,
+          0.006
+        ]
+      },
+      "ensemble": {
+        "acc": [
+          0.576,
+          0.0
+        ],
+        "bal_acc": [
+          0.511,
+          0.0
+        ],
+        "auc": [
+          0.577,
+          0.007
+        ]
+      }
+    }
+  },
+  "3class": {
+    "n_people": {
+      "A": 36,
+      "F": 23,
+      "C": 29
+    },
+    "chance_acc": 0.409,
+    "nested": {
+      "acc": [
+        0.633,
+        0.027
+      ],
+      "bal_acc": [
+        0.592,
+        0.027
+      ],
+      "auc": [
+        0.776,
+        0.01
+      ]
+    },
+    "picks": {
+      "boosting_all": 8,
+      "logreg_all": 7
+    },
+    "per_model_outer_only": {
+      "logreg_spectral": {
+        "acc": [
+          0.644,
+          0.005
+        ],
+        "bal_acc": [
+          0.605,
+          0.009
+        ],
+        "auc": [
+          0.753,
+          0.007
+        ]
+      },
+      "logreg_all": {
+        "acc": [
+          0.598,
+          0.005
+        ],
+        "bal_acc": [
+          0.563,
+          0.007
+        ],
+        "auc": [
+          0.766,
+          0.001
+        ]
+      },
+      "boosting_all": {
+        "acc": [
+          0.659,
+          0.0
+        ],
+        "bal_acc": [
+          0.62,
+          0.001
+        ],
+        "auc": [
+          0.768,
+          0.002
+        ]
+      },
+      "ensemble": {
+        "acc": [
+          0.667,
+          0.005
+        ],
+        "bal_acc": [
+          0.632,
+          0.006
+        ],
+        "auc": [
+          0.78,
+          0.0
+        ]
+      }
+    }
+  }
+}
