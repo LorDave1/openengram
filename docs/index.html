@@ -543,11 +543,12 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
         <div class="notes">
           <div>
             <h3><span lang="en">In plain words</span><span lang="he">במילים פשוטות</span></h3>
-            <p style="margin-top:10px"><span lang="en">From brain-wave patterns alone, the model tells a person with Alzheimer's from a healthy person in about 7 out of 8 people, where guessing gets about half right. Age and sex alone reach only about 59%, so the EEG is doing the work. Telling Alzheimer's and FTD apart is still no better than guessing. That is the hardest open problem here, and a great place to help.</span><span lang="he">רק מתוך דפוסי גלי המוח, המודל מבדיל בין אדם עם אלצהיימר לאדם בריא אצל בערך 7 מתוך 8 אנשים, כשניחוש מצליח בערך בחצי. גיל ומין לבדם מגיעים רק לכ-59%, כך שה-EEG הוא שעושה את העבודה. ההבחנה בין אלצהיימר ל-FTD עדיין לא טובה יותר מניחוש. זו הבעיה הפתוחה הקשה ביותר כאן, ומקום מצוין לעזור בו.</span></p>
+            <p style="margin-top:10px"><span lang="en">From brain-wave patterns alone, the model tells a person with Alzheimer's from a healthy person in about 7 out of 8 people, where guessing gets about half right. Age and sex alone reach only about 59%, so the EEG is doing the work. Telling Alzheimer's and FTD apart is the hard part: our best attempt reaches about 6 in 10, only a little above guessing. That is the main open problem here, and a great place to help.</span><span lang="he">רק מתוך דפוסי גלי המוח, המודל מבדיל בין אדם עם אלצהיימר לאדם בריא אצל בערך 7 מתוך 8 אנשים, כשניחוש מצליח בערך בחצי. גיל ומין לבדם מגיעים רק לכ-59%, כך שה-EEG הוא שעושה את העבודה. החלק הקשה הוא להבחין בין אלצהיימר ל-FTD: הניסיון הטוב ביותר שלנו מגיע לכ-6 מתוך 10, רק מעט מעל ניחוש. זו הבעיה הפתוחה המרכזית כאן, ומקום מצוין לעזור בו.</span></p>
           </div>
           <div>
             <h3><span lang="en">Limits we know about</span><span lang="he">מגבלות שאנחנו יודעים עליהן</span></h3>
             <ul>
+              <li><span lang="en">* Alzheimer's vs FTD uses the v3 model with an extra eyes-open recording of the same people (balanced accuracy 60.5%). That setup slightly lowers the other tasks, so they show the v2 model.</span><span lang="he">* אלצהיימר מול FTD מחושב במודל v3, עם הקלטה נוספת בעיניים פקוחות של אותם אנשים (דיוק מאוזן 60.5%). השיטה הזו מורידה מעט את שאר המשימות, ולכן הן מוצגות לפי מודל v2.</span></li>
               <li><span lang="en">A small sample from one hospital. Results may differ elsewhere.</span><span lang="he">מדגם קטן מבית חולים אחד. התוצאות עשויות להיות שונות במקומות אחרים.</span></li>
               <li><span lang="en">The model was chosen using only the training people (nested cross-validation), so these numbers are not tuned on the people being tested.</span><span lang="he">המודל נבחר רק לפי האנשים שבאימון (אימות צולב מקונן), כך שהמספרים לא כוונו לפי האנשים שנבדקו.</span></li>
               <li><span lang="en">A research benchmark, not a test for any person.</span><span lang="he">השוואה מחקרית, לא בדיקה לאדם מסוים.</span></li>
@@ -670,6 +671,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
         <a href="https://github.com/LorDave1/openengram/forks"><b id="p-forks">–</b><span><span lang="en">forks</span><span lang="he">עותקים</span></span></a>
       </div>
       <ul class="news">
+        <li><time datetime="2026-11-16">16 Nov 2026</time><p><strong><span lang="en">EEG v3: five new ideas for Alzheimer's vs FTD.</span><span lang="he">EEG v3: חמישה רעיונות חדשים להבחנה בין אלצהיימר ל-FTD.</span></strong> <span lang="en">Most didn't help. A person-level model plus a second, eyes-open recording moved it from chance to about 63%. The likely next step is more people.</span><span lang="he">רובם לא עזרו. מודל ברמת האדם יחד עם הקלטה נוספת בעיניים פקוחות העלה את התוצאה מניחוש לכ-63%. הצעד הבא כנראה הוא יותר אנשים.</span></p></li>
         <li><time datetime="2026-11-16">16 Nov 2026</time><p><strong><span lang="en">EEG v2 with nested cross-validation.</span><span lang="he">גרסה 2 של מודל ה-EEG, עם אימות צולב מקונן.</span></strong> <span lang="en">Connectivity and complexity features, a small neural network, and an age/sex check. Alzheimer's vs healthy reaches 87% per person.</span><span lang="he">מאפייני קישוריות ומורכבות, רשת נוירונים קטנה, ובדיקה של השפעת גיל ומין. אלצהיימר מול בריאים מגיע ל-87% לכל אדם.</span></p></li>
         <li><time datetime="2026-11-15">15 Nov 2026</time><p><strong><span lang="en">OpenEngram goes public.</span><span lang="he">OpenEngram יוצא לאור.</span></strong> <span lang="en">Website, forms for experts and developers, roles, and the first ten open tasks.</span><span lang="he">אתר, טפסים למומחים ולמפתחים, תפקידים, ועשר המשימות הפתוחות הראשונות.</span></p></li>
         <li><time datetime="2026-11-15">15 Nov 2026</time><p><strong><span lang="en">First EEG baseline.</span><span lang="he">מודל EEG ראשון.</span></strong> <span lang="en">88 people from a public dataset, tested person by person.</span><span lang="he">88 אנשים ממאגר ציבורי, כשכל אדם נבדק בנפרד.</span></p></li>
@@ -748,11 +750,11 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
   if (!start) start = (navigator.language || '').slice(0, 2) === 'he' ? 'he' : 'en';
   document.querySelectorAll('.langswitch button').forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.set); }); });
 
-  /* ---------- results chart (results/v2_nested.json, nested cross-validation, mean per-person accuracy) ---------- */
+  /* ---------- results chart: nested CV, mean per-person accuracy. results/v2_nested.json; AD vs FTD from results/v3_nested_photic.json ---------- */
   var data = [
     { en: 'Alzheimer’s vs healthy', he: 'אלצהיימר מול בריאים', acc: 87.2, chance: 55.4 },
     { en: 'FTD vs healthy', he: 'FTD מול בריאים', acc: 76.3, chance: 55.8 },
-    { en: 'Alzheimer’s vs FTD', he: 'אלצהיימר מול FTD', acc: 58.2, chance: 61.0 },
+    { en: 'Alzheimer’s vs FTD *', he: 'אלצהיימר מול FTD *', acc: 63.3, chance: 61.0 },
     { en: 'All 3 groups', he: 'שלוש הקבוצות', acc: 63.3, chance: 40.9 }
   ];
   var bars = document.getElementById('bars');
