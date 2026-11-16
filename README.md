@@ -1,5 +1,7 @@
 # OpenEngram
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24281637.svg)](https://doi.org/10.5281/zenodo.24281637)
+
 **An open, community-built research workspace for understanding and detecting dementia.**
 
 *An engram is the physical trace a memory leaves in the brain. OpenEngram is an open effort to understand how those traces are lost, and how to protect them.*
@@ -9,6 +11,8 @@ literature reviews, or plain-language explanations. You don't need to be a scien
 to help, and scientists are very welcome too.
 
 🌐 **Website:** https://lordave1.github.io/openengram/ (English + עברית)
+
+📄 **Cite:** https://doi.org/10.5281/zenodo.24281637 (Zenodo; this DOI always points to the latest release)
 
 > ⚠️ **Research only. Not a medical device.** Nothing here diagnoses, treats or gives
 > medical advice to anyone. See [SAFETY.md](SAFETY.md).
