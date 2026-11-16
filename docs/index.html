@@ -7,7 +7,17 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="OpenEngram is an open, community-built research project on dementia. Founded by David Abramov. Research only, not a medical device.">
 <meta property="og:title" content="OpenEngram: open research on dementia">
-<meta property="og:description" content="Memories leave traces in the brain. An open community studying how dementia erases them, and how to detect it earlier.">
+<meta property="og:description" content="Memories leave traces in the brain. Doctors, scientists and developers building open AI research on dementia. Research only, not a medical device.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lordave1.github.io/openengram/">
+<meta property="og:image" content="https://lordave1.github.io/openengram/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#080b18">
+<link rel="canonical" href="https://lordave1.github.io/openengram/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"OpenEngram","description":"Open-source, community-built research on dementia: EEG, tau spread, drug repurposing and speech markers. Research only, not a medical device.","codeRepository":"https://github.com/LorDave1/openengram","url":"https://lordave1.github.io/openengram/","license":"https://www.apache.org/licenses/LICENSE-2.0","programmingLanguage":"Python","founder":{"@type":"Person","name":"David Abramov"},"author":{"@type":"Person","name":"David Abramov"},"keywords":"dementia, Alzheimer's disease, frontotemporal dementia, EEG, machine learning, open science"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Rubik:wght@500;600;700&family=Inter:wght@400;500;600&family=Heebo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -156,6 +166,44 @@ nav.links a:hover { color: var(--ink); }
 .builder .btn.primary:hover { box-shadow: 0 10px 40px -8px rgba(127,214,255,.6); }
 .everyone { margin-top: 22px; color: var(--soft); }
 
+/* accessibility tools */
+.skip { position: absolute; inset-inline-start: 12px; top: -60px; z-index: 50; background: var(--memory); color: #1a1205; padding: 10px 16px; border-radius: 10px; font-weight: 600; text-decoration: none; }
+.skip:focus { top: calc(10px + env(safe-area-inset-top, 0px)); }
+.tools { display: inline-flex; gap: 6px; }
+.tool { font: inherit; font-size: .9rem; min-width: 38px; min-height: 36px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.04); color: var(--ink); cursor: pointer; }
+.tool:hover { background: rgba(255,255,255,.1); }
+.tool[aria-pressed="true"] { background: var(--ink); color: var(--night); }
+#app.still *, #app.still *::before, #app.still *::after { animation-play-state: paused !important; }
+
+/* families + FAQ + news + pulse */
+.family { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: start; }
+.family .isnt { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.family .isnt li { display: flex; gap: 12px; align-items: flex-start; color: var(--soft); }
+.family .isnt li b { color: var(--ink); font-weight: 600; }
+.mark { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: .9rem; }
+.mark.yes { background: rgba(127,214,255,.15); color: var(--neural); }
+.mark.no { background: rgba(255,140,140,.14); color: #ffb3b3; }
+.helpbox { border: 1px solid rgba(255,197,110,.45); background: var(--warn-bg); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+.helpbox p, .helpbox li { color: #ffe3b8; }
+.helpbox ul { margin: 0; padding-inline-start: 1.2rem; display: flex; flex-direction: column; gap: 8px; }
+.faq { display: flex; flex-direction: column; gap: 10px; }
+.faq details { border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.03); }
+.faq summary { cursor: pointer; list-style: none; padding: 18px 22px; font-weight: 600; font-size: 1.08rem; display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--font-mono); color: var(--memory); font-size: 1.3rem; flex: none; transition: transform .25s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details > div { padding: 0 22px 20px; color: var(--soft); }
+.faq summary:focus-visible { outline: 3px solid var(--memory); outline-offset: 2px; border-radius: 14px; }
+.news { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.news li { display: grid; grid-template-columns: 8.5rem 1fr; gap: 18px; padding-block: 16px; border-bottom: 1px solid var(--line); }
+.news time { font-family: var(--font-mono); font-size: .88rem; color: var(--memory); padding-top: 3px; }
+.news p { color: var(--soft); }
+.news strong { color: var(--ink); }
+.pulse { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; margin-bottom: 28px; }
+.pulse a { text-decoration: none; color: var(--ink); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; background: rgba(255,255,255,.03); display: flex; flex-direction: column; gap: 2px; }
+.pulse b { font-family: "Sora", var(--font-display); font-size: 2rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.pulse span { color: var(--soft); font-size: .9rem; }
+
 /* hover glow cards */
 .grid4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
@@ -243,7 +291,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
 .rv.pending { transform: translateY(28px); }
 
 @media (max-width: 900px) {
-  .results, .grid3, .paths { grid-template-columns: 1fr; }
+  .results, .grid3, .paths, .family { grid-template-columns: 1fr; }
   .seats { grid-template-columns: repeat(2, minmax(0,1fr)); }
   .ladder { grid-template-columns: 1fr 1fr; }
   .ladder div::after { display: none; }
@@ -256,6 +304,12 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
 @media (max-width: 600px) {
   :root { --step-0: 1.08rem; }
   .grid4, .rules, .steps, .seats { grid-template-columns: 1fr; }
+  .news li { grid-template-columns: 1fr; gap: 4px; }
+  .pulse { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .tools .tool.sz { display: none; }
+  nav.links a[href="#contribute"] { display: none; }
+  header.top .wrap { gap: 10px; }
+  .brand svg { width: 26px; height: 26px; }
   .founder-card { flex-direction: column; align-items: flex-start; }
   .row, .axis { grid-template-columns: 7.4rem 1fr 3.4rem; gap: 10px; }
   .row .lbl { font-size: .95rem; }
@@ -280,6 +334,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
 <div id="stage" aria-hidden="true"><div class="fallback"></div></div>
 <div class="vignette" aria-hidden="true"></div>
 
+<a class="skip" href="#top"><span lang="en">Skip to content</span><span lang="he">דלגו לתוכן</span></a>
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="OpenEngram home">
@@ -287,12 +342,16 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
       OpenEngram
     </a>
     <nav class="links" aria-label="Sections">
-      <a class="opt" href="#story"><span lang="en">Dementia</span><span lang="he">דמנציה</span></a>
-      <a class="opt" href="#how"><span lang="en">How it works</span><span lang="he">איך זה עובד</span></a>
+      <a class="opt" href="#families"><span lang="en">Families</span><span lang="he">משפחות</span></a>
       <a class="opt" href="#modules"><span lang="en">Research</span><span lang="he">מחקר</span></a>
             <a class="opt" href="#team"><span lang="en">Team</span><span lang="he">צוות</span></a>
       <a href="#contribute"><span lang="en">Join</span><span lang="he">להצטרף</span></a>
       <a class="opt navdonate" href="#donate" hidden><span lang="en">Donate</span><span lang="he">לתרום</span></a>
+      <span class="tools" role="group" aria-label="Display">
+        <button type="button" class="tool sz" id="btn-smaller" aria-label="Smaller text" title="Smaller text">A−</button>
+        <button type="button" class="tool sz" id="btn-bigger" aria-label="Larger text" title="Larger text">A+</button>
+        <button type="button" class="tool" id="btn-motion" aria-pressed="false" aria-label="Pause animation" title="Pause animation">❚❚</button>
+      </span>
       <span class="langswitch" role="group" aria-label="Language">
         <button type="button" id="btn-en" data-set="en" aria-pressed="true">EN</button>
         <button type="button" id="btn-he" data-set="he" aria-pressed="false">עברית</button>
@@ -360,6 +419,35 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
         <h3><span lang="en">Finally it reaches the outer cortex</span><span lang="he">ולבסוף הוא מגיע לקליפת המוח החיצונית</span></h3>
         <p><span lang="en">Language, planning and recognition are affected. By the time dementia is diagnosed, much of this has already happened. That is why earlier detection matters so much.</span><span lang="he">השפה, התכנון והזיהוי נפגעים. עד שמאבחנים דמנציה, חלק גדול מזה כבר קרה. בגלל זה זיהוי מוקדם כל כך חשוב.</span></p>
         <span class="illus"><span lang="en">The brain on this page is an illustration of the general pattern, not real patient data.</span><span lang="he">המוח בעמוד הזה הוא המחשה של הדפוס הכללי, לא נתונים של מטופלים.</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="glass" id="families" data-brain="0" data-pos="dim">
+  <div class="wrap">
+    <div class="panel">
+      <div class="head">
+        <span class="eyebrow"><span lang="en">For families and caregivers</span><span lang="he">למשפחות ולמטפלים</span></span>
+        <h2><span lang="en">If someone you love has dementia</span><span lang="he">אם מישהו שאתם אוהבים חי עם דמנציה</span></h2>
+        <p><span lang="en">Thank you for being here. Here is what OpenEngram is, and what it is not.</span><span lang="he">תודה שאתם כאן. הנה מה ש-OpenEngram הוא, ומה הוא לא.</span></p>
+      </div>
+      <div class="family">
+        <ul class="isnt">
+          <li><span class="mark yes" aria-hidden="true">✓</span><span><b><span lang="en">It is</span><span lang="he">זה כן</span></b> <span lang="en">a public research project that studies anonymous, openly shared data to understand dementia better.</span><span lang="he">פרויקט מחקר ציבורי שחוקר נתונים אנונימיים ופתוחים כדי להבין דמנציה טוב יותר.</span></span></li>
+          <li><span class="mark yes" aria-hidden="true">✓</span><span><b><span lang="en">It is</span><span lang="he">זה כן</span></b> <span lang="en">a place where you can help: translate, share your experience as a caregiver, or tell others about it.</span><span lang="he">מקום שבו אפשר לעזור: לתרגם, לשתף את הניסיון שלכם כמטפלים, או לספר לאחרים.</span></span></li>
+          <li><span class="mark no" aria-hidden="true">✕</span><span><b><span lang="en">It is not</span><span lang="he">זה לא</span></b> <span lang="en">a test. It cannot tell whether you or a family member has dementia.</span><span lang="he">בדיקה. הוא לא יכול לקבוע אם לכם או לבן משפחה יש דמנציה.</span></span></li>
+          <li><span class="mark no" aria-hidden="true">✕</span><span><b><span lang="en">It is not</span><span lang="he">זה לא</span></b> <span lang="en">a treatment, and nothing here is advice about medication.</span><span lang="he">טיפול, ושום דבר כאן אינו המלצה על תרופות.</span></span></li>
+          <li><span class="mark no" aria-hidden="true">✕</span><span><b><span lang="en">Please don't</span><span lang="he">בבקשה לא</span></b> <span lang="en">send us anyone's recordings or medical records. We only use public, anonymous datasets.</span><span lang="he">לשלוח לנו הקלטות או מסמכים רפואיים של אף אחד. אנחנו משתמשים רק במאגרים ציבוריים ואנונימיים.</span></span></li>
+        </ul>
+        <div class="helpbox" role="note">
+          <h3><span lang="en">Worried about memory?</span><span lang="he">מודאגים לגבי הזיכרון?</span></h3>
+          <ul>
+            <li><span lang="en">Talk to a family doctor. Many causes of memory problems can be treated.</span><span lang="he">פנו לרופא המשפחה. לבעיות זיכרון יש סיבות רבות, וחלקן ניתנות לטיפול.</span></li>
+            <li><span lang="en">Write down what changed and when. It helps the doctor.</span><span lang="he">רשמו מה השתנה ומתי. זה עוזר לרופא.</span></li>
+            <li><span lang="en">Your local Alzheimer's association can support families. The <a href="https://www.alzint.org/our-members/">Alzheimer's Disease International member list</a> shows the one in your country.</span><span lang="he">עמותת האלצהיימר במדינה שלכם יכולה לתמוך במשפחות. <a href="https://www.alzint.org/our-members/">ברשימת החברים של Alzheimer's Disease International</a> אפשר למצוא את העמותה בארץ שלכם.</span></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -568,6 +656,48 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
   </div>
 </section>
 
+<section class="glass" id="news" data-brain="0" data-pos="dim">
+  <div class="wrap">
+    <div class="panel">
+      <div class="head">
+        <span class="eyebrow"><span lang="en">Progress</span><span lang="he">התקדמות</span></span>
+        <h2><span lang="en">What's new</span><span lang="he">מה חדש</span></h2>
+      </div>
+      <div class="pulse" id="pulse" hidden>
+        <a href="https://github.com/LorDave1/openengram/stargazers"><b id="p-stars">–</b><span><span lang="en">GitHub stars</span><span lang="he">כוכבים ב-GitHub</span></span></a>
+        <a href="https://github.com/LorDave1/openengram/graphs/contributors"><b id="p-people">–</b><span><span lang="en">contributors</span><span lang="he">תורמים</span></span></a>
+        <a href="https://github.com/LorDave1/openengram/issues"><b id="p-issues">–</b><span><span lang="en">open tasks</span><span lang="he">משימות פתוחות</span></span></a>
+        <a href="https://github.com/LorDave1/openengram/forks"><b id="p-forks">–</b><span><span lang="en">forks</span><span lang="he">עותקים</span></span></a>
+      </div>
+      <ul class="news">
+        <li><time datetime="2026-11-16">16 Nov 2026</time><p><strong><span lang="en">EEG v2 with nested cross-validation.</span><span lang="he">גרסה 2 של מודל ה-EEG, עם אימות צולב מקונן.</span></strong> <span lang="en">Connectivity and complexity features, a small neural network, and an age/sex check. Alzheimer's vs healthy reaches 87% per person.</span><span lang="he">מאפייני קישוריות ומורכבות, רשת נוירונים קטנה, ובדיקה של השפעת גיל ומין. אלצהיימר מול בריאים מגיע ל-87% לכל אדם.</span></p></li>
+        <li><time datetime="2026-11-15">15 Nov 2026</time><p><strong><span lang="en">OpenEngram goes public.</span><span lang="he">OpenEngram יוצא לאור.</span></strong> <span lang="en">Website, forms for experts and developers, roles, and the first ten open tasks.</span><span lang="he">אתר, טפסים למומחים ולמפתחים, תפקידים, ועשר המשימות הפתוחות הראשונות.</span></p></li>
+        <li><time datetime="2026-11-15">15 Nov 2026</time><p><strong><span lang="en">First EEG baseline.</span><span lang="he">מודל EEG ראשון.</span></strong> <span lang="en">88 people from a public dataset, tested person by person.</span><span lang="he">88 אנשים ממאגר ציבורי, כשכל אדם נבדק בנפרד.</span></p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="glass" id="faq" data-brain="0" data-pos="dim">
+  <div class="wrap">
+    <div class="panel">
+      <div class="head">
+        <span class="eyebrow"><span lang="en">Questions</span><span lang="he">שאלות</span></span>
+        <h2><span lang="en">Frequently asked</span><span lang="he">שאלות נפוצות</span></h2>
+      </div>
+      <div class="faq">
+        <details><summary><span lang="en">Can OpenEngram tell me if I have dementia?</span><span lang="he">האם OpenEngram יכול להגיד לי אם יש לי דמנציה?</span></summary><div><span lang="en">No. It is a research project. Its models were tested on a small public dataset and are not approved for any person. Please talk to a doctor.</span><span lang="he">לא. זה פרויקט מחקר. המודלים נבדקו על מאגר ציבורי קטן ולא אושרו לשימוש על אף אדם. פנו לרופא.</span></div></details>
+        <details><summary><span lang="en">I'm a doctor or researcher. How much time does it take?</span><span lang="he">אני רופא או חוקר. כמה זמן זה דורש?</span></summary><div><span lang="en">As much as you like. Sharing one insight takes five minutes through a short form, with no code and no Git. Advisors review results when they can and are credited by name.</span><span lang="he">כמה שתרצו. שיתוף של תובנה אחת לוקח חמש דקות בטופס קצר, בלי קוד ובלי Git. יועצים בודקים תוצאות כשנוח להם ומקבלים קרדיט בשמם.</span></div></details>
+        <details><summary><span lang="en">I'm a developer. Where do I start?</span><span lang="he">אני מפתח. מאיפה מתחילים?</span></summary><div><span lang="en">Pick an issue labelled "good first issue", say hello on it, and follow the contributing guide. The code is Python, and the data downloads with one command and no account.</span><span lang="he">בחרו משימה עם התווית "good first issue", כתבו עליה שאתם לוקחים אותה, ועקבו אחרי המדריך לתורמים. הקוד ב-Python, והנתונים יורדים בפקודה אחת ובלי צורך בחשבון.</span></div></details>
+        <details><summary><span lang="en">Whose data do you use?</span><span lang="he">באילו נתונים אתם משתמשים?</span></summary><div><span lang="en">Only public, anonymous datasets with an open license, recorded in DATA.md. Data files are never stored in the project, and we never try to identify anyone.</span><span lang="he">רק במאגרים ציבוריים ואנונימיים ברישיון פתוח, שמתועדים ב-DATA.md. קבצי נתונים לא נשמרים בפרויקט, ואף פעם לא מנסים לזהות אף אחד.</span></div></details>
+        <details><summary><span lang="en">Who controls what goes in?</span><span lang="he">מי מחליט מה נכנס?</span></summary><div><span lang="en">Every change is reviewed before it is accepted, and automatic checks block data files and wording that sounds like a diagnosis. David Abramov founded the project and has the final say. Roles are explained in GOVERNANCE.md.</span><span lang="he">כל שינוי נבדק לפני שהוא מתקבל, ובדיקות אוטומטיות חוסמות קבצי נתונים וניסוח שנשמע כמו אבחנה. דוד אברמוב ייסד את הפרויקט ויש לו המילה האחרונה. התפקידים מוסברים ב-GOVERNANCE.md.</span></div></details>
+        <details><summary><span lang="en">Is it free? Who owns it?</span><span lang="he">זה בחינם? של מי זה?</span></summary><div><span lang="en">Everything is free and open under the Apache 2.0 license. Anyone can use and build on it, as long as they keep the credit to the founder and contributors.</span><span lang="he">הכל חינמי ופתוח ברישיון Apache 2.0. כל אחד יכול להשתמש ולבנות על זה, בתנאי שהוא שומר על הקרדיט למייסד ולתורמים.</span></div></details>
+        <details><summary><span lang="en">How do I cite OpenEngram?</span><span lang="he">איך מצטטים את OpenEngram?</span></summary><div><span lang="en">Use the "Cite this repository" button on <a href="https://github.com/LorDave1/openengram">GitHub</a>, and please also cite the datasets listed in DATA.md.</span><span lang="he">השתמשו בכפתור "Cite this repository" ב-<a href="https://github.com/LorDave1/openengram">GitHub</a>, ובבקשה צטטו גם את מאגרי הנתונים שמופיעים ב-DATA.md.</span></div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="glass" id="safety" data-brain="0" data-pos="dim">
   <div class="wrap">
     <div class="panel">
@@ -599,6 +729,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
 (function () {
   var app = document.getElementById('app');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var paused = reduce;
   var brain = null;
 
   /* ---------- language ---------- */
@@ -709,7 +840,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
     var renderer;
     try { renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' }); } catch (e) { return null; }
     var mobile = innerWidth < 700;
-    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, mobile ? 1.5 : 2));
     renderer.setClearColor(0x000000, 0);
     stage.appendChild(renderer.domElement);
     stage.querySelector('.fallback').style.opacity = '0.5';
@@ -845,7 +976,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
       else if (posn === 'side') { target.x = side * Math.min(halfW * 0.5, 1.45); target.y = 0; target.s = 1; target.op = 1; }
       else if (posn === 'center') { target.x = 0; target.y = 0; target.s = 1.15; target.op = 0.45; }
       else { target.x = side * Math.min(halfW * 0.55, 1.6); target.y = 0; target.s = 1.05; target.op = 0.55; }
-      if (reduce) { for (var k in target) cur[k] = target[k]; render(0); }
+      if (paused) { for (var k in target) cur[k] = target[k]; render(0); }
     }
     var mouse = new THREE.Vector2(), ray = new THREE.Raycaster(), plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), hit = new THREE.Vector3(), tilt = { x: 0, y: 0 };
     addEventListener('pointermove', function (e) {
@@ -854,7 +985,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
       ray.setFromCamera(mouse, camera);
       plane.constant = -holder.position.z;
       if (ray.ray.intersectPlane(plane, hit)) { uniforms.uMouse.value.copy(hit); uniforms.uMouseOn.value = e.pointerType === 'mouse' ? 1 : 0; }
-      if (reduce) render(0);
+      if (paused) render(0);
     }, { passive: true });
     addEventListener('pointerleave', function () { uniforms.uMouseOn.value = 0; });
     addEventListener('scroll', layout, { passive: true });
@@ -862,14 +993,14 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
 
     var rotY = 1.05, last = performance.now();
     function render(dt) {
-      var e = reduce ? 1 : 1 - Math.pow(0.04, dt);
+      var e = paused ? 1 : 1 - Math.pow(0.04, dt);
       for (var k in target) cur[k] += (target[k] - cur[k]) * e;
       uniforms.uProgress.value = cur.prog;
       holder.position.set(cur.x, cur.y, 0);
       holder.scale.setScalar(cur.s);
       renderer.domElement.style.opacity = cur.op;
-      if (!reduce) rotY += dt * 0.12;
-      group.rotation.set(0.18 + tilt.x * (reduce ? 0 : 1), rotY + tilt.y * (reduce ? 0 : 1), 0);
+      if (!paused) rotY += dt * 0.12;
+      group.rotation.set(0.18 + tilt.x * (paused ? 0 : 1), rotY + tilt.y * (paused ? 0 : 1), 0);
       // signals stop where tau has spread
       for (var j = 0; j < P; j++) {
         var pu = pulses[j], ln = links[pu.l];
@@ -877,7 +1008,7 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
         if (pu.t > 1) { pu.t = 0; pu.l = Math.floor(Math.random() * links.length); ln = links[pu.l]; }
         var dead = cur.prog > 0.001 && ln[2] < cur.prog * 1.08;
         pp[j * 3] = ln[0][0] + (ln[1][0] - ln[0][0]) * pu.t; pp[j * 3 + 1] = ln[0][1] + (ln[1][1] - ln[0][1]) * pu.t; pp[j * 3 + 2] = ln[0][2] + (ln[1][2] - ln[0][2]) * pu.t;
-        pa2[j] = dead || reduce ? 0 : Math.sin(pu.t * Math.PI);
+        pa2[j] = dead || paused ? 0 : Math.sin(pu.t * Math.PI);
       }
       pgeo.attributes.position.needsUpdate = true; pgeo.attributes.aA.needsUpdate = true;
       renderer.render(scene, camera);
@@ -885,14 +1016,48 @@ footer .wrap { display: flex; flex-direction: column; gap: 8px; }
     function loop(now) {
       var dt = Math.min(0.05, (now - last) / 1000); last = now;
       uniforms.uTime.value = now / 1000;
-      if (!document.hidden) render(dt);
+      if (!document.hidden && !paused) render(dt);
       requestAnimationFrame(loop);
     }
     resize();
-    if (reduce) render(0); else requestAnimationFrame(loop);
-    return { layout: layout };
+    render(0);
+    requestAnimationFrame(loop);
+    return { layout: layout, pause: function (v) { paused = v; last = performance.now(); render(0); } };
   }
   try { brain = initBrain(); } catch (e) { brain = null; }
+
+  /* ---------- display tools: text size and pause animation ---------- */
+  var sizes = [1, 1.125, 1.25, 1.4], si = 0;
+  try { si = Math.max(0, Math.min(sizes.length - 1, parseInt(localStorage.getItem('oe-size') || '0', 10) || 0)); } catch (e) {}
+  function applySize() { document.documentElement.style.fontSize = (sizes[si] * 100) + '%'; try { localStorage.setItem('oe-size', si); } catch (e) {} if (brain) brain.layout(); }
+  document.getElementById('btn-bigger').addEventListener('click', function () { if (si < sizes.length - 1) { si++; applySize(); } });
+  document.getElementById('btn-smaller').addEventListener('click', function () { if (si > 0) { si--; applySize(); } });
+  if (si) applySize();
+  var mbtn = document.getElementById('btn-motion');
+  try { if (localStorage.getItem('oe-still') === '1') paused = true; } catch (e) {}
+  function applyMotion() {
+    app.classList.toggle('still', paused);
+    mbtn.setAttribute('aria-pressed', paused);
+    mbtn.textContent = paused ? '▶' : '❚❚';
+    var lbl = paused ? 'Play animation' : 'Pause animation'; mbtn.setAttribute('aria-label', lbl); mbtn.title = lbl;
+    if (brain && brain.pause) brain.pause(paused);
+  }
+  mbtn.addEventListener('click', function () { paused = !paused; try { localStorage.setItem('oe-still', paused ? '1' : '0'); } catch (e) {} applyMotion(); });
+
+  /* ---------- live project numbers from GitHub (live site only) ---------- */
+  try {
+    fetch('https://api.github.com/repos/LorDave1/openengram').then(function (r) { return r.ok ? r.json() : null; }).then(function (r) {
+      if (!r) return;
+      document.getElementById('p-stars').textContent = r.stargazers_count;
+      document.getElementById('p-forks').textContent = r.forks_count;
+      document.getElementById('p-issues').textContent = r.open_issues_count;
+      return fetch('https://api.github.com/repos/LorDave1/openengram/contributors?per_page=100&anon=1').then(function (c) { return c.ok ? c.json() : []; }).then(function (c) {
+        document.getElementById('p-people').textContent = (c || []).length || 1;
+        document.getElementById('pulse').hidden = false;
+      });
+    }).catch(function () {});
+  } catch (e) {}
+  applyMotion();
   setLang(start);
 })();
 </script>
