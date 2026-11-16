@@ -85,10 +85,10 @@ def process(args):
     return pd.DataFrame(rows).astype({"window": "int32"})
 
 
-def main(root, out, workers):
+def main(root, out, workers, deriv="derivatives", task="eyesclosed"):
     parts = pd.read_csv(root / "participants.tsv", sep="\t")
-    jobs = [(r.participant_id, r.Group, root / "derivatives" / r.participant_id / "eeg" /
-             f"{r.participant_id}_task-eyesclosed_eeg.set") for r in parts.itertuples()]
+    jobs = [(r.participant_id, r.Group, root / deriv / r.participant_id / "eeg" /
+             f"{r.participant_id}_task-{task}_eeg.set") for r in parts.itertuples()]
     with ProcessPoolExecutor(workers) as ex:
         dfs = []
         for d in ex.map(process, jobs):
@@ -106,5 +106,7 @@ if __name__ == "__main__":
     ap.add_argument("--root", type=Path, default=Path("data/ds004504"))
     ap.add_argument("--out", type=Path, default=Path("data/features_v2.parquet"))
     ap.add_argument("--workers", type=int, default=3)
+    ap.add_argument("--deriv", default="derivatives", help="folder with preprocessed recordings, relative to --root")
+    ap.add_argument("--task", default="eyesclosed", help="BIDS task name in the file names")
     a = ap.parse_args()
-    main(a.root, a.out, a.workers)
+    main(a.root, a.out, a.workers, a.deriv, a.task)

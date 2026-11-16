@@ -8,3 +8,4 @@ pyarrow==26.0.1
 torch==2.15.0
 eeglabio
 pymatreader
+pyriemann==0.12
