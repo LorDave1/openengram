@@ -21,3 +21,16 @@ eeg-nested:
 
 eeg-cnn:
 	nice -n 10 $(PY) modules/eeg_dementia/src/cnn.py
+
+data-photic:
+	bash scripts/download_ds006036.sh
+
+eeg-features-v3:
+	nice -n 10 $(PY) modules/eeg_dementia/src/features_v3.py
+	nice -n 10 $(PY) modules/eeg_dementia/src/features_v2.py --root data/ds006036 --deriv derivatives/eeglab --task photomark --out data/features_v2_photic.parquet
+
+eeg-nested-v3:
+	nice -n 10 $(PY) modules/eeg_dementia/src/evaluate_v3.py --mode nested
+
+eeg-nested-v3-photic:
+	nice -n 10 $(PY) modules/eeg_dementia/src/evaluate_v3.py --mode nested --photic
