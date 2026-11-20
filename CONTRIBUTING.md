@@ -29,7 +29,8 @@ Everything goes through GitHub, so every change is public, reviewed and credited
 | Lead a new research module | Fill the [**Propose a module** form](https://github.com/LorDave1/openengram/issues/new?template=02-module-proposal.yml) | We agree the plan, then you become that module's lead and reviewer. |
 
 Every pull request runs automatic checks (code compiles, no data files, no wording that
-presents results as a diagnosis) and needs one approving review from a maintainer
+presents results as a diagnosis, including hedged wording,
+see [SAFETY.md](SAFETY.md)) and needs one approving review from a maintainer
 (see `.github/CODEOWNERS`). Contributors of every kind, not only code, are listed in
 [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
