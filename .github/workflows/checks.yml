@@ -27,9 +27,8 @@ jobs:
             echo "$bad"; echo "$big"; exit 1
           fi
       - name: Safety wording
+        # Flags direct and hedged wording that presents research output as a statement
+        # about someone's health ("detects dementia", "consistent with FTD"). See SAFETY.md.
         run: |
-          # Flags phrases that present research output as a medical diagnosis.
-          hits=$(git grep -nIiE 'diagnoses (alzheimer|dementia|ftd)|detects (alzheimer|dementia)|(clinically|medically) (proven|validated)|cure[sd]? (alzheimer|dementia)' -- . ':!SAFETY.md' ':!.github/workflows/checks.yml' || true)
-          if [ -n "$hits" ]; then
-            echo "Please rephrase as a research result on a dataset (see SAFETY.md):"; echo "$hits"; exit 1
-          fi
+          python scripts/check_wording.py --self-test
+          python scripts/check_wording.py

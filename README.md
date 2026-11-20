@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24281637.svg)](https://doi.org/10.5281/zenodo.24281637)
 
-**An open, community-built research workspace for understanding and detecting dementia.**
+**An open, community-built research workspace for understanding and detecting dementia.** <!-- wording-ok: project goal, not a claim about a person -->
 
 *An engram is the physical trace a memory leaves in the brain. OpenEngram is an open effort to understand how those traces are lost, and how to protect them.*
 
@@ -33,7 +33,7 @@ Each module is a self-contained folder with its own README, code and results.
 | [`modules/eeg_dementia`](modules/eeg_dementia) | ✅ baseline working | Can a routine resting EEG tell Alzheimer's / FTD apart from healthy aging? |
 | [`modules/tau_spread_simulation`](modules/tau_spread_simulation) | 💡 open for contributors | Simulate how tau protein spreads along the brain's wiring (connectome). |
 | [`modules/drug_repurposing`](modules/drug_repurposing) | 💡 open for contributors | Find existing approved drugs that may be relevant, using knowledge graphs (PrimeKG, Hetionet). |
-| [`modules/speech_markers`](modules/speech_markers) | 💡 open for contributors | Early signs of cognitive decline in speech and language. |
+| [`modules/speech_markers`](modules/speech_markers) | 💡 open for contributors | Early signs of cognitive decline in speech and language. <!-- wording-ok: research topic --> |
 
 Want to start a new module? Open an issue describing the question and the open data you'd use.
 
